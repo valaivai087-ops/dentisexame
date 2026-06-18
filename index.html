@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>牙醫國考導航 OS</title>
+<style>
+:root{--w:#fff;--bg:#f5f7fb;--bg2:#eaeef7;--ink:#0d1626;--ink2:#2c3a56;--ink3:#677089;
+--navy:#0f1d3e;--navy-l:#e0e5f5;--teal:#0d7d8c;--teal-l:#cdf0f3;
+--blue:#1e40af;--blue-l:#dbeafe;--gold:#b8860b;--gold-l:#fef6e3;
+--green:#15803d;--green-l:#dcfce7;--rose:#be123c;--rose-l:#ffe4e6;
+--violet:#5b21b6;--violet-l:#ede9fe;--amber:#b45309;--amber-l:#fef3c7;
+--border:#dde2ef;--sh:0 2px 12px rgba(13,22,38,.07);--sh2:0 8px 32px rgba(13,22,38,.13);--r:12px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:"Noto Sans TC","Microsoft JhengHei",Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7}
+button{cursor:pointer;font:inherit}a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-i{max-width:1340px;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#0f1d3e,#0d7d8c);display:grid;place-items:center;color:#fff;font-size:18px}
+.logo-txt{font-weight:900;font-size:15px;color:var(--teal)}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap}
+.nl{padding:5px 9px;border-radius:6px;font-size:11px;font-weight:700;color:var(--ink2);border:none;background:none;transition:.15s}
+.nl:hover{background:var(--teal-l);color:var(--teal)}
+.hero{background:linear-gradient(140deg,#070d1f 0%,#0f1d3e 40%,#0d4a55 75%,#0d7d8c 100%);color:#fff;padding:72px 24px 64px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 45%,rgba(13,125,140,.2) 0%,transparent 55%),radial-gradient(ellipse at 75% 35%,rgba(30,64,175,.2) 0%,transparent 50%);pointer-events:none}
+.h-eye{display:inline-block;padding:6px 16px;border:1px solid rgba(255,255,255,.22);border-radius:999px;font-size:12px;font-weight:800;color:#7dd3fc;margin-bottom:20px}
+.hero h1{font-size:clamp(28px,5vw,58px);font-weight:900;line-height:1.15;margin-bottom:18px}
+.hero h1 .gr{color:#5eead4}
+.hero-sub{max-width:660px;margin:0 auto 16px;font-size:17px;color:#bfdbfe;line-height:1.9}
+.hero-tags{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:24px 0}
+.htag{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);font-size:12px;font-weight:700;color:#e0f2fe}
+.h-quote{max-width:540px;margin:24px auto 0;padding:16px 20px;border-left:3px solid #5eead4;background:rgba(255,255,255,.05);border-radius:0 10px 10px 0;text-align:left}
+.h-quote p{color:#a7f3d0;font-size:15px;line-height:1.9}
+.h-quote .sub{color:#7dd3fc;font-size:13px;margin-top:4px;font-style:italic}
+.wrap{max-width:1340px;margin:0 auto;padding:0 20px}
+.sec{padding:54px 0 40px}
+.sh{margin-bottom:32px}
+.sh .etag{font-size:11px;font-weight:900;letter-spacing:.06em;color:var(--teal);margin-bottom:8px}
+.sh h2{font-size:clamp(20px,2.8vw,34px);font-weight:900;color:var(--ink);margin-bottom:6px}
+.sh p{color:var(--ink2);font-size:14px;line-height:1.8;max-width:700px}
+.div{height:1px;background:var(--border)}
+
+/* Core flow */
+.flow-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;margin-bottom:24px}
+.flow-step{padding:10px 16px;border-radius:999px;background:var(--w);border:2px solid var(--teal);font-size:13px;font-weight:800;color:var(--teal);box-shadow:var(--sh)}
+.flow-arr{color:var(--teal);font-size:18px;font-weight:900}
+
+/* Three maps */
+.maps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.map-card{padding:22px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh)}
+.map-title{font-size:17px;font-weight:900;color:var(--navy);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--teal-l)}
+.map-item{padding:9px 12px;border-radius:8px;background:var(--bg2);font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:6px}
+
+/* Subject grid */
+.subj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.subj-card{padding:16px;border:2px solid var(--border);border-radius:var(--r);background:var(--w);cursor:pointer;transition:.15s;box-shadow:var(--sh)}
+.subj-card:hover,.subj-card.sel{border-color:var(--teal);background:var(--teal-l)}
+.subj-icon{font-size:22px;margin-bottom:6px}
+.subj-zh{font-size:14px;font-weight:800;color:var(--ink)}
+.subj-detail{margin-top:20px;padding:22px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh2);display:none}
+.subj-detail.show{display:block}
+.subj-detail h3{font-size:18px;font-weight:900;color:var(--navy);margin-bottom:6px}
+.subj-detail p{font-size:13px;color:var(--ink2);margin-bottom:14px;line-height:1.75}
+.topic-tags{display:flex;flex-wrap:wrap;gap:8px}
+.topic-tag{padding:6px 14px;border-radius:999px;background:var(--blue-l);color:var(--blue);font-size:12px;font-weight:700}
+.topic-list{display:grid;gap:8px;margin-top:6px}
+.topic-row{display:flex;gap:10px;padding:11px 14px;border-radius:9px;background:var(--bg2);border-left:3px solid var(--blue)}
+.topic-num{font-size:12px;font-weight:900;color:var(--blue);flex:0 0 auto;min-width:22px}
+.topic-z{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.topic-e{font-size:12px;color:var(--ink2);line-height:1.6}
+.quiz-block{margin-top:18px;padding-top:18px;border-top:1px dashed var(--border)}
+.quiz-item{padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--w);margin-bottom:12px}
+.quiz-q{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:10px}
+.quiz-opts{display:grid;gap:7px;margin-bottom:10px}
+.quiz-opt{padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg2);font-size:13px;color:var(--ink2);cursor:pointer;transition:.12s}
+.quiz-opt:hover{border-color:var(--blue)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-l);color:var(--green);font-weight:800}
+.quiz-opt.wrong{border-color:var(--rose);background:var(--rose-l);color:var(--rose);font-weight:800}
+.quiz-explain{display:none;padding:12px 14px;border-radius:9px;background:var(--amber-l);border-left:3px solid var(--amber);font-size:13px;color:var(--ink2);line-height:1.75}
+.quiz-explain.show{display:block}
+.quiz-label{font-size:11px;font-weight:900;color:var(--teal);margin-bottom:10px}
+
+/* Disease cards */
+.disease-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.dt{padding:9px 14px;border:2px solid var(--border);border-radius:var(--r);background:var(--w);font-size:13px;font-weight:800;color:var(--ink2);cursor:pointer;transition:.15s}
+.dt:hover,.dt.sel{border-color:var(--rose);background:var(--rose-l);color:var(--rose)}
+.disease-detail{display:none}
+.disease-detail.show{display:block}
+.dd-card{padding:22px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh);margin-bottom:14px}
+.dd-label{font-size:11px;font-weight:900;color:var(--rose);margin-bottom:8px}
+.dd-title{font-size:19px;font-weight:900;color:var(--ink);margin-bottom:4px}
+.dd-stage{font-size:13px;color:var(--ink3);margin-bottom:14px;font-style:italic}
+.dd-mech{font-size:14px;color:var(--ink2);line-height:1.85}
+.stage-flow{display:grid;gap:8px}
+.stage-item{display:flex;gap:12px;padding:13px 16px;border-radius:10px;background:var(--bg2);border-left:4px solid var(--rose)}
+.stage-num{font-size:13px;font-weight:900;color:var(--rose);flex:0 0 auto}
+.stage-z{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:3px}
+.stage-e{font-size:12px;color:var(--ink2);line-height:1.6}
+.exam-points{display:flex;flex-wrap:wrap;gap:8px}
+.exam-point{padding:8px 14px;border-radius:9px;background:var(--gold-l);color:var(--gold);font-size:13px;font-weight:700;border:1px solid #f0dca0}
+
+/* Imaging */
+.img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.img-card{padding:22px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh)}
+.img-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.img-icon{font-size:26px}
+.img-zh{font-size:17px;font-weight:900;color:var(--ink)}
+.img-use{font-size:13px;color:var(--ink2);margin-bottom:14px;line-height:1.75}
+.img-points{display:grid;gap:6px}
+.img-point{padding:8px 12px;border-radius:8px;background:var(--blue-l);color:var(--blue);font-size:12px;font-weight:700}
+
+/* Case flow */
+.case-flow{display:grid;gap:10px}
+.case-step{display:grid;grid-template-columns:50px 1fr;gap:14px;padding:18px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh)}
+.case-num{width:42px;height:42px;border-radius:50%;background:var(--violet);color:#fff;display:grid;place-items:center;font-size:16px;font-weight:900}
+.case-z{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.case-desc{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:6px}
+.case-tip{font-size:12px;color:var(--violet);background:var(--violet-l);padding:8px 12px;border-radius:8px;font-weight:700}
+
+/* Sprint plans */
+.sprint-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.spt{padding:9px 16px;border:2px solid var(--border);border-radius:var(--r);background:var(--w);font-size:13px;font-weight:800;color:var(--ink2);cursor:pointer;transition:.15s}
+.spt:hover,.spt.sel{border-color:var(--amber);background:var(--amber-l);color:var(--amber)}
+.sprint-detail{display:none;padding:22px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh2)}
+.sprint-detail.show{display:block}
+.sprint-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sprint-days{font-size:22px;font-weight:900;color:var(--amber)}
+.sprint-sub{font-size:14px;font-weight:700;color:var(--ink2)}
+.sprint-desc{font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.75}
+.phase-list{display:grid;gap:8px}
+.phase-item{padding:12px 16px;border-radius:9px;background:var(--bg2);font-size:13px;color:var(--ink2);font-weight:600;border-left:3px solid var(--amber)}
+
+/* AI Coach */
+.coach-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.coach-card{padding:18px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh);text-align:center}
+.coach-icon{font-size:26px;margin-bottom:8px}
+.coach-zh{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.coach-desc{font-size:12px;color:var(--ink2);line-height:1.6}
+
+/* Dashboard */
+.dash-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.dash-card{padding:18px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh)}
+.dash-icon{font-size:22px;margin-bottom:8px}
+.dash-zh{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.dash-bar{height:10px;background:var(--bg2);border-radius:5px;overflow:hidden;margin-bottom:6px}
+.dash-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--teal),var(--blue))}
+.dash-input{display:flex;align-items:center;gap:8px}
+.dash-range{flex:1;accent-color:var(--teal)}
+.dash-num{font-size:13px;font-weight:900;color:var(--teal);min-width:30px;text-align:right}
+.dash-desc{font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.5}
+
+/* Quick scan / Anki demo */
+.anki-card{max-width:480px;margin:0 auto;padding:0;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh2);overflow:hidden;cursor:pointer}
+.anki-face{padding:40px 28px;text-align:center;min-height:160px;display:flex;align-items:center;justify-content:center}
+.anki-q{font-size:17px;font-weight:800;color:var(--ink)}
+.anki-a{font-size:15px;color:var(--ink2);line-height:1.8;display:none}
+.anki-a.show{display:block}
+.anki-label{font-size:11px;font-weight:900;color:var(--teal);margin-bottom:10px}
+.anki-nav{display:flex;justify-content:space-between;padding:14px 20px;background:var(--bg2);border-top:1px solid var(--border)}
+.anki-btn{padding:8px 16px;border-radius:8px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;border:none}
+.anki-btn.sec{background:var(--ink3)}
+
+/* Quotes */
+.quote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.quote-card{padding:22px;border-radius:var(--r);border:1px solid var(--border);background:var(--w);box-shadow:var(--sh);border-left:4px solid var(--teal)}
+.quote-bad{font-size:14px;color:var(--ink3);margin-bottom:6px}
+.quote-good{font-size:18px;font-weight:800;color:var(--ink)}
+
+/* Formula */
+.formula-box{padding:28px;border:2px solid var(--navy);border-radius:var(--r);background:linear-gradient(135deg,var(--navy-l),var(--teal-l));text-align:center}
+.formula-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.formula-item{padding:10px 16px;border-radius:10px;background:var(--w);border:1px solid var(--navy);font-size:14px;font-weight:800;color:var(--navy)}
+.formula-x{font-size:18px;color:var(--navy);font-weight:900}
+.formula-result{font-size:20px;font-weight:900;color:var(--teal);margin-top:10px}
+
+/* Ultimate goal */
+.goal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.goal-card{padding:18px;border:1px solid var(--border);border-radius:var(--r);background:var(--w);box-shadow:var(--sh);text-align:center}
+.goal-num{font-size:20px;font-weight:900;color:var(--navy);margin-bottom:6px}
+.goal-z{font-size:13px;font-weight:800;color:var(--ink)}
+
+.cta-section{padding:60px 24px;background:linear-gradient(140deg,#070d1f,#0f1d3e,#0d7d8c);color:#fff;text-align:center}
+.cta-section h2{font-size:clamp(20px,3.5vw,38px);font-weight:900;margin-bottom:18px}
+.cta-body{max-width:560px;margin:0 auto 28px;font-size:15px;color:#a7f3d0;line-height:1.95}
+
+@media(max-width:960px){
+  .maps-grid,.img-grid,.coach-grid,.dash-grid,.goal-grid{grid-template-columns:repeat(2,1fr)}
+  .subj-grid{grid-template-columns:repeat(3,1fr)}
+  .quote-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .subj-grid,.coach-grid,.dash-grid,.goal-grid,.maps-grid,.img-grid{grid-template-columns:repeat(2,1fr)}
+  .case-step{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-i">
+    <div class="logo"><div class="logo-mark">🦷</div><div class="logo-txt">牙醫國考導航 OS</div></div>
+    <div class="nav-links">
+      <button class="nl" onclick="go('#flow')">核心流程</button>
+      <button class="nl" onclick="go('#maps')">三大地圖</button>
+      <button class="nl" onclick="go('#subjects')">全科導航</button>
+      <button class="nl" onclick="go('#diseases')">疾病地圖</button>
+      <button class="nl" onclick="go('#imaging')">影像導航</button>
+      <button class="nl" onclick="go('#case')">臨床病例</button>
+      <button class="nl" onclick="go('#anki')">Anki中心</button>
+      <button class="nl" onclick="go('#sprint')">衝刺計畫</button>
+      <button class="nl" onclick="go('#coach')">AI教練</button>
+      <button class="nl" onclick="go('#dashboard')">儀表板</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="h-eye">牙醫國考導航 OS · 帶你一路刷到上岸</div>
+  <h1>牙醫國考導航 OS<br><span class="gr">一次就考過</span></h1>
+  <p class="hero-sub">國考最大的秘密根本不是背更多。<br>是找出最常考的規律，把整個牙醫知識拼成一張網。</p>
+  <div class="hero-tags">
+    <span class="htag">📊 大數據分析</span>
+    <span class="htag">🔍 找規律</span>
+    <span class="htag">🔮 猜題預測</span>
+    <span class="htag">🗺️ 疾病地圖</span>
+    <span class="htag">🧠 Anki系統</span>
+    <span class="htag">🤖 AI教練</span>
+  </div>
+  <div class="h-quote">
+    <p>一般學生只會死背疾病，厲害的人會畫出疾病地圖。<br>一般學生看影像看不出重點，厲害的人看得到病灶背後在發生什麼事。</p>
+    <p class="sub">牙醫國考考的根本不是記憶力，是你腦袋裡有沒有建好一整張牙醫知識網。</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+<section class="sec" id="flow">
+  <div class="sh">
+    <div class="etag">核心流程</div>
+    <h2>從20年考古題到上岸，整套流程都幫你排好了</h2>
+    <p>不是亂刷題，是一條已經驗證過的路：先看過去考什麼→抓出規律→畫成地圖→反覆刻進腦袋→上場實戰→補強卡關的地方。</p>
+  </div>
+  <div class="flow-row" id="flowRow"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="maps">
+  <div class="sh">
+    <div class="etag">三大地圖</div>
+    <h2>知識地圖 × 疾病地圖 × 臨床地圖</h2>
+    <p>國考考的不是某一科零散的小知識，是這三張地圖能不能在你腦中接起來：基礎知識撐起對疾病的理解，理解疾病又撐起臨床上的判斷。</p>
+  </div>
+  <div class="maps-grid" id="mapsGrid"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="subjects">
+  <div class="sh">
+    <div class="etag">全科導航</div>
+    <h2>16個科目，點下去就看到重點</h2>
+    <p>點任何一個科目，每科都幫你列出15個最常考的重點主題，還附6題模擬考古題，點選答案直接看解析，邊讀邊練。</p>
+  </div>
+  <div class="subj-grid" id="subjGrid"></div>
+  <div class="subj-detail" id="subjDetail"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="diseases">
+  <div class="sh">
+    <div class="etag">疾病地圖</div>
+    <h2>8個核心疾病，從機轉看到病程怎麼變</h2>
+    <p>一般學生只會背疾病的症狀清單，厲害的人是搞懂這個病怎麼一步步惡化的。點疾病進去，看完整的病程地圖和國考考點。</p>
+  </div>
+  <div class="disease-tabs" id="diseaseTabs"></div>
+  <div class="disease-detail" id="diseaseDetail"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="imaging">
+  <div class="sh">
+    <div class="etag">影像導航</div>
+    <h2>4種核心影像，判讀重點直接給你</h2>
+    <p>影像題是國考最容易丟分的地方。重點是搞懂每種影像什麼時候該用、怎麼判讀，不是死記圖片長怎樣。</p>
+  </div>
+  <div class="img-grid" id="imgGrid"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="case">
+  <div class="sh">
+    <div class="etag">臨床病例導航</div>
+    <h2>從病人主訴到追蹤回診，整條推理鏈拆給你看</h2>
+    <p>臨床病例題考的是你的推理邏輯，不是零碎知識點。這六步是國考臨床題的標準解題流程。</p>
+  </div>
+  <div class="case-flow" id="caseFlow"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="anki">
+  <div class="sh">
+    <div class="etag">Anki中心</div>
+    <h2>🧠 來試試間隔複習卡片</h2>
+    <p>點卡片翻面看答案。國考Anki系統的玩法就是：高頻卡庫＋錯題卡庫＋弱點卡庫，搭配間隔複習演算法，讓你該忘記之前剛好又被提醒一次。</p>
+  </div>
+  <div class="anki-card" id="ankiCard">
+    <div class="anki-face" id="ankiFace">
+      <div>
+        <div class="anki-label">點卡片翻面 · 牙髓病學</div>
+        <div class="anki-q" id="ankiQ"></div>
+      </div>
+    </div>
+    <div class="anki-nav">
+      <button class="anki-btn sec" onclick="prevCard(event)">上一張</button>
+      <button class="anki-btn" onclick="flipCard(event)">翻面</button>
+      <button class="anki-btn sec" onclick="nextCard(event)">下一張</button>
+    </div>
+  </div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="sprint">
+  <div class="sh">
+    <div class="etag">衝刺計畫</div>
+    <h2>5種衝刺方案，看你剩多少時間挑一個</h2>
+    <p>時間越少越要聚焦在高頻考點，別再亂讀冷門知識。挑一個符合你現在進度的計畫就好。</p>
+  </div>
+  <div class="sprint-tabs" id="sprintTabs"></div>
+  <div class="sprint-detail" id="sprintDetail"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="coach">
+  <div class="sh">
+    <div class="etag">AI牙醫教練</div>
+    <h2>🤖 五大教練功能</h2>
+    <p>AI教練不是只會出題給你寫，是真的會根據你的學習狀況，幫你一直調整策略的那種。</p>
+  </div>
+  <div class="coach-grid" id="coachGrid"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="dashboard">
+  <div class="sh">
+    <div class="etag">儀表板</div>
+    <h2>📊 五大戰力指標</h2>
+    <p>每天花10秒鐘看一下儀表板，就知道自己現在準備得怎樣，離上岸還有多遠。</p>
+  </div>
+  <div class="dash-grid" id="dashGrid"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="quotes">
+  <div class="sh">
+    <div class="etag">金句牆</div>
+    <h2>💬 讀書讀到卡關時看一看</h2>
+  </div>
+  <div class="quote-grid" id="quoteGrid"></div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="formula">
+  <div class="sh">
+    <div class="etag">通關公式</div>
+    <h2>🔑 牙醫國考通關公式</h2>
+  </div>
+  <div class="formula-box">
+    <div class="formula-flow" id="formulaFlow"></div>
+    <div class="formula-result">= 牙醫國考通關系統</div>
+  </div>
+</section>
+<div class="div"></div>
+
+<section class="sec" id="ultimate">
+  <div class="sh">
+    <div class="etag">終極目標</div>
+    <h2>🎯 五個真正重要的能力</h2>
+    <p>國考過了只是個起點，這五個能力才是讓你變成一個真正厲害的牙醫師的關鍵。</p>
+  </div>
+  <div class="goal-grid" id="goalGrid"></div>
+</section>
+
+</div>
+
+<section class="cta-section" id="cta">
+  <div class="wrap">
+    <h2>把你的牙醫國考通關系統建起來</h2>
+    <p class="cta-body">
+      AI時代最強牙醫學生公式：<br>
+      牙科知識 × AI能力 × 疾病地圖 × 影像判讀 × 臨床推理 × 國考導航<br>
+      ＝ 牙醫國考高分上岸。
+    </p>
+  </div>
+</section>
+
+
+<script>
+function go(id){document.querySelector(id)?.scrollIntoView({behavior:'smooth'})}
+
+
+const FLOW=["20年國考題", "AI分析", "高頻考點", "疾病地圖", "影像判讀", "Anki記憶", "模擬考", "弱點分析", "補強弱點", "國考通關"];
+const flowRow=document.getElementById('flowRow');
+FLOW.forEach((f,i)=>{
+  flowRow.innerHTML+=`<span class="flow-step">${f}</span>`;
+  if(i<FLOW.length-1) flowRow.innerHTML+=`<span class="flow-arr">→</span>`;
+});
+
+const MAPS=[{"title": "知識地圖", "items": ["解剖", "生理", "病理", "藥理", "微免"]}, {"title": "疾病地圖", "items": ["齲齒", "牙髓", "牙周", "口腔病理", "口腔外科"]}, {"title": "臨床地圖", "items": ["問診", "影像", "診斷", "治療", "追蹤"]}];
+const mapsGrid=document.getElementById('mapsGrid');
+MAPS.forEach(m=>{
+  mapsGrid.innerHTML+=`<div class="map-card"><div class="map-title">${m.title}</div>${m.items.map(it=>`<div class="map-item">${it}</div>`).join('')}</div>`;
+});
+
+const SUBJECTS=[{"icon": "🦴", "zh": "解剖學", "desc": "頭頸部到底長怎樣、牙齒構造、顳顎關節怎麼動、神經血管走去哪——這科就是在搞懂「東西在哪裡」。", "topics": [{"z": "三叉神經分支", "e": "眼神經、上頷神經、下頷神經三條分支各管哪個區域，下牙槽神經是下頷神經最重要的分支"}, {"z": "顏面動脈走向", "e": "從外頸動脈分出來，繞過下顎骨下緣，沿著嘴角往上走到內眼角，國考愛問分支順序"}, {"z": "顳顎關節結構", "e": "由下顎骨髁突、關節盤、關節窩三部分組成，關節盤把關節腔分成上下兩室，運動方式不同"}, {"z": "牙齒形態學", "e": "每顆牙的牙根數目、咬合面溝紋型態、牙頸線曲度，這些是辨認牙齒種類的關鍵特徵"}, {"z": "頭頸部肌肉群", "e": "咀嚼肌四大肌（咬肌、顳肌、翼內肌、翼外肌）的起止點跟動作方向是國考常客"}, {"z": "上顎骨解剖", "e": "上顎竇位置、犬齒窩、上顎結節，這些都跟拔牙、植牙手術路徑息息相關"}, {"z": "下顎骨解剖", "e": "下顎管走向、頦孔位置、下顎角，植牙跟阻生齒手術前一定要先搞懂"}, {"z": "牙周組織解剖", "e": "牙齦、牙周韌帶、齒槽骨、牙骨質四大結構合稱牙周組織，韌帶纖維走向有特定分類"}, {"z": "唾液腺解剖", "e": "腮腺、下顎下腺、舌下腺三大唾液腺的開口位置跟分泌物性質（漿液性/黏液性）不一樣"}, {"z": "舌部解剖", "e": "舌頭分前2/3跟後1/3，神經支配不同（三叉神經vs舌咽神經），味覺跟一般感覺也分開走"}, {"z": "靜脈竇與危險三角", "e": "面部靜脈沒有瓣膜，感染可能逆流到海綿竇，這個「危險三角」是國考經典考點"}, {"z": "淋巴引流系統", "e": "頭頸部淋巴結分區，口腔癌轉移路徑跟淋巴引流方向高度相關"}, {"z": "鼻顎管與切牙管", "e": "上顎前牙區的胚胎殘留結構，跟鼻顎管囊腫的好發位置有關"}, {"z": "咽部肌肉解剖", "e": "吞嚥動作牽涉到的肌肉群，跟阻塞性睡眠呼吸中止症的解剖基礎有關"}, {"z": "牙齒發育與萌牙順序", "e": "乳牙跟恆牙的萌發順序、萌發時間，兒童牙科跟矯正科都會用到"}], "quiz": [{"q": "下牙槽神經阻斷麻醉時，注射針尖主要瞄準哪個解剖標誌？", "options": ["翼下顎韌帶", "下顎小舌", "頦孔", "下顎角"], "answer": 1, "explain": "下牙槽神經阻斷麻醉是瞄準下顎小舌（lingula）內側的下顎管入口，這裡是神經血管束進入下顎管的位置，麻醉劑要打在這個區域才能阻斷整條下牙槽神經。"}, {"q": "顳顎關節的關節盤把關節腔分為上下兩室，下關節腔主要負責哪種運動？", "options": ["旋轉運動", "平移運動", "側向運動", "垂直運動"], "answer": 0, "explain": "下關節腔（髁突與關節盤之間）主要負責旋轉運動（rotation），上關節腔（關節盤與關節窩之間）負責平移運動（translation），這也是顳顎關節盤移位疾病好發在上關節腔的原因。"}, {"q": "咀嚼肌中，主要負責下顎前突動作的是哪一條肌肉？", "options": ["咬肌", "顳肌", "翼內肌", "翼外肌"], "answer": 3, "explain": "翼外肌雙側收縮時會讓下顎往前突，這也是張口動作的啟動肌肉之一；翼內肌則主要協助上提下顎跟側向運動。"}, {"q": "上顎竇底部最靠近哪些牙齒的根尖？", "options": ["上顎中切牙與側切牙", "上顎犬齒", "上顎前磨牙與磨牙", "下顎磨牙"], "answer": 2, "explain": "上顎竇底部跟上顎前磨牙、磨牙的根尖距離最近，有時甚至直接突入根尖之間，這也是植牙跟拔牙時要特別注意上顎竇穿孔風險的原因。"}, {"q": "舌頭前2/3的一般感覺主要由哪條神經負責？", "options": ["舌咽神經", "顏面神經", "舌神經（三叉神經分支）", "舌下神經"], "answer": 2, "explain": "舌前2/3的一般感覺（觸覺、痛覺、溫度覺）由舌神經負責，舌神經是三叉神經下頷支的分支；味覺則是由顏面神經的鼓索神經負責，兩者走的是不同路徑。"}, {"q": "「危險三角」這個解剖概念主要描述哪種感染擴散路徑？", "options": ["牙周感染擴散到下顎管", "鼻唇部感染經面靜脈逆流到海綿竇", "智齒感染擴散到咽喉", "上顎竇感染擴散到眼眶"], "answer": 1, "explain": "面部靜脈系統沒有靜脈瓣，鼻唇部（從鼻根到兩側嘴角形成的三角區）感染擠壓時可能讓細菌逆流經內眼角靜脈進入海綿竇，引發致命的海綿竇血栓性靜脈炎，所以這個區域被稱為「危險三角」，臨床上忌諱擠壓這個區域的感染病灶。"}]}, {"icon": "⚙️", "zh": "生理學", "desc": "唾液怎麼分泌、咀嚼吞嚥怎麼反射、痛覺怎麼傳到大腦——這科是在搞懂「東西怎麼運作」。", "topics": [{"z": "唾液分泌調控", "e": "自律神經雙重支配，副交感神經促進大量水狀唾液，交感神經促進少量黏稠唾液"}, {"z": "咀嚼肌反射弧", "e": "開口反射、咬合反射都跟三叉神經的本體感覺輸入有關，是保護性反射"}, {"z": "三叉神經痛覺路徑", "e": "從周邊接受器經三叉神經節，傳到腦幹三叉神經脊束核，再上行到大腦皮質"}, {"z": "味覺傳導機制", "e": "舌前2/3走顏面神經鼓索支，舌後1/3走舌咽神經，會厭區走迷走神經"}, {"z": "顳顎關節生理", "e": "開口運動是旋轉加平移的複合動作，正常開口度跟兩種運動的協調有關"}, {"z": "吞嚥反射機轉", "e": "分口腔期、咽部期、食道期三階段，咽部期是不自主反射，由腦幹吞嚥中樞控制"}, {"z": "齒槽骨改建生理", "e": "破骨細胞跟成骨細胞的動態平衡，矯正牙齒移動就是靠這個生理機轉達成的"}, {"z": "牙髓血流調控", "e": "牙髓腔是密閉空間，血流調控對牙髓壓力跟發炎反應的影響特別大"}, {"z": "唾液成分與功能", "e": "含澀蛋白、溶菌酶、IgA等保護成分，緩衝能力跟齲齒抵抗力直接相關"}, {"z": "咬合力與本體感覺", "e": "牙周韌帶裡的本體感受器能感覺到極細微的咬合差異，這是咬合調整的生理基礎"}, {"z": "自律神經與唾液腺", "e": "交感跟副交感神經對唾液腺的不同支配效果，是用藥（抗組織胺、抗膽鹼藥）造成口乾的生理基礎"}, {"z": "溫度覺與牙髓敏感性", "e": "牙本質小管液體流動學說（hydrodynamic theory）解釋為什麼冷熱刺激會引發牙髓痛"}, {"z": "呼吸道與口腔關係", "e": "口呼吸對齒列發育、唾液保護功能的影響，跟阻塞性睡眠呼吸中止症的關聯"}, {"z": "疼痛調控機轉", "e": "閘門控制理論（gate control theory）解釋為什麼震動跟按摩能緩解疼痛，臨床麻醉前搖晃嘴唇就是這個原理"}, {"z": "血壓與局部麻醉", "e": "局麻藥裡的血管收縮劑對心血管系統的生理影響，特殊病人用藥要特別注意"}], "quiz": [{"q": "副交感神經興奮時，唾液腺分泌的唾液主要特性是什麼？", "options": ["量少且黏稠", "量多且水狀", "完全停止分泌", "只分泌黏液性唾液"], "answer": 1, "explain": "副交感神經興奮會促進唾液腺分泌大量水狀（漿液性）唾液，這也是為什麼進食時聞到食物香味會大量分泌唾液；交感神經興奮則促進少量黏稠唾液分泌，緊張時口乾就是交感神經作用的結果。"}, {"q": "牙本質小管液體流動學說主要用來解釋哪種臨床現象？", "options": ["牙周韌帶本體感覺", "冷熱刺激引發牙髓痛", "唾液分泌調控", "咀嚼肌反射"], "answer": 1, "explain": "流體動力學說認為牙本質小管內的液體因溫度或滲透壓改變而流動，這個流動會刺激牙髓內的神經末梢，引發疼痛感，這也是為什麼冷刺激（液體外流加速）比熱刺激更容易引發短暫尖銳的痛感。"}, {"q": "舌後1/3的味覺主要由哪條神經傳導？", "options": ["顏面神經", "三叉神經", "舌咽神經", "迷走神經"], "answer": 2, "explain": "舌後1/3的味覺由舌咽神經負責，舌前2/3的味覺則由顏面神經的鼓索神經負責，這也是為什麼顏面神經麻痺（貝爾氏麻痺）的病人會抱怨舌頭前段味覺異常的生理基礎。"}, {"q": "吞嚥反射的咽部期主要受哪個部位控制？", "options": ["大腦皮質", "延腦吞嚥中樞", "脊髓", "小腦"], "answer": 1, "explain": "吞嚥反射的口腔期是自主控制的，但一旦食團進入咽部，咽部期就轉為不自主的反射動作，由延腦的吞嚥中樞統一協調，這個階段牽涉多條腦神經（三叉、顏面、舌咽、迷走、舌下神經）的協同動作。"}, {"q": "矯正治療牙齒移動的生理基礎主要依靠什麼機轉？", "options": ["牙髓血流增加", "破骨細胞與成骨細胞的齒槽骨改建", "唾液分泌增加", "咀嚼肌力量增強"], "answer": 1, "explain": "矯正力施加在牙齒上時，受壓側的齒槽骨會被破骨細胞吸收，受牽張側則由成骨細胞新生骨質，這個持續性的骨改建過程讓牙齒能在齒槽骨中緩慢移動到新的位置。"}, {"q": "閘門控制理論被用來解釋臨床上哪種止痛技巧的生理機轉？", "options": ["局部麻醉藥的作用", "注射前搖晃嘴唇減輕痛覺", "NSAIDs的消炎止痛作用", "神經阻斷術的長期止痛效果"], "answer": 1, "explain": "閘門控制理論認為粗纖維（觸覺、震動覺）的訊號傳導速度比細纖維（痛覺）快，能在脊髓背角「關閉閘門」抑制痛覺訊號上傳，這正是為什麼牙醫師注射前會搖晃或按壓嘴唇來分散病人對針扎痛覺的注意力。"}]}, {"icon": "🧬", "zh": "生化學", "desc": "牙齒怎麼鈣化、膠原蛋白怎麼代謝、酸鹼怎麼平衡，齲齒就是化學反應——這科是在搞懂「分子層級在幹嘛」。", "topics": [{"z": "脫鈣與再礦化機轉", "e": "牙菌斑產酸讓琥珀酸鈣溶解，唾液中的鈣磷離子又能讓礦化重新沉積，兩者動態平衡"}, {"z": "唾液緩衝系統", "e": "碳酸氫鹽緩衝系統是唾液最主要的緩衝機制，能快速中和牙菌斑產生的酸"}, {"z": "膠原蛋白合成", "e": "I型膠原蛋白是牙周韌帶、牙骨質的主要結構蛋白，合成需要維生素C作為輔因子"}, {"z": "氟化物作用機制", "e": "氟離子能取代氫氧基形成氟磷灰石，抗酸能力比原本的氫氧磷灰石高很多"}, {"z": "牙菌斑生化反應", "e": "變形鏈球菌透過糖解作用代謝蔗糖產酸，同時合成細胞外多醣讓菌斑黏附更牢"}, {"z": "羥基磷灰石結構", "e": "牙釉質主要成分是羥基磷灰石結晶，結晶排列方向跟牙釉質的物理強度直接相關"}, {"z": "牙本質基質蛋白", "e": "牙本質除了膠原蛋白還有非膠原蛋白（如牙本質磷蛋白），參與礦化調控"}, {"z": "酸鹼平衡與pH循環", "e": "Stephan曲線描述進食後牙菌斑pH值快速下降又緩慢回升的過程，臨界pH是5.5"}, {"z": "骨改建相關生化標記", "e": "鹼性磷酸酶、骨鈣素是成骨活性指標，抗酒石酸酸性磷酸酶是破骨活性指標"}, {"z": "維生素D與鈣磷代謝", "e": "活化的維生素D促進腸道鈣吸收，跟齒槽骨密度跟全身骨骼健康息息相關"}, {"z": "麩胺酸與神經傳導", "e": "麩胺酸是中樞神經主要的興奮性神經傳導物質，跟疼痛訊號傳遞有關"}, {"z": "穀胱甘肽抗氧化系統", "e": "身體對抗氧化壓力的重要分子，跟牙周組織修復跟發炎反應調控有關"}, {"z": "血紅素代謝與牙齦色素", "e": "某些藥物或重金屬會在牙齦沉積色素，跟血紅素代謝的生化機轉有關"}, {"z": "局部麻醉藥代謝", "e": "酯類局麻藥在血漿中被酯酶水解，醯胺類則在肝臟代謝，過敏反應機轉也不同"}, {"z": "牙菌斑生物膜形成", "e": "從獲得性膜形成到細菌附著、共聚、成熟生物膜，每階段都有特定的生化交互作用"}], "quiz": [{"q": "氟磷灰石比氫氧磷灰石抗酸能力更強的主要原因是什麼？", "options": ["氟離子體積較大讓結晶更緊密", "氟離子取代氫氧基後降低結晶溶解度", "氟離子能殺死牙菌斑細菌", "氟離子增加唾液分泌量"], "answer": 1, "explain": "氟離子取代氫氧磷灰石中的氫氧基形成氟磷灰石後，結晶結構更穩定，臨界pH值比氫氧磷灰石更低（約4.5 vs 5.5），代表氟磷灰石在更酸的環境下才會開始溶解，這就是氟化物防齲的核心生化機轉。"}, {"q": "Stephan曲線主要描述的是什麼現象？", "options": ["牙齦發炎指數隨時間變化", "牙菌斑pH值在進食後的變化", "唾液流速隨晝夜變化", "牙周韌帶寬度隨年齡變化"], "answer": 1, "explain": "Stephan曲線顯示進食含糖食物後，牙菌斑pH值會在幾分鐘內快速下降到臨界pH以下，然後依靠唾液緩衝能力緩慢回升，整個過程可能需要20-40分鐘，這也是為什麼少量多餐的含糖飲食習慣比一次吃完更傷牙齒。"}, {"q": "膠原蛋白合成過程中，維生素C的主要作用是什麼？", "options": ["促進膠原蛋白基因表現", "作為脯胺醯羥化酶的輔因子", "抑制膠原蛋白分解酶", "增加膠原蛋白溶解度"], "answer": 1, "explain": "維生素C是脯胺醯羥化酶（prolyl hydroxylase）跟賴胺醯羥化酶的必需輔因子，這兩個酵素負責把膠原蛋白前驅物中的特定胺基酸羥化，沒有這個步驟膠原蛋白就無法正確折疊跟形成穩定的三股螺旋結構，維生素C缺乏（壞血病）會導致牙齦出血就是這個機轉。"}, {"q": "變形鏈球菌能在牙菌斑中形成強韌生物膜，主要依靠合成哪種物質？", "options": ["乳酸", "細胞外多醣（葡聚醣）", "碳酸氫鹽", "唾液澀蛋白"], "answer": 1, "explain": "變形鏈球菌利用葡萄糖基轉移酶（GTF）把蔗糖轉化成細胞外多醣（主要是葡聚醣），這些多醣形成黏稠的基質讓細菌牢牢黏附在牙齒表面，同時也降低唾液跟氟化物滲透進去中和酸的能力，是齲齒致病的重要生化基礎。"}, {"q": "酯類局部麻醉藥（如普魯卡因）跟醯胺類局麻藥（如利多卡因）最主要的代謝差異是什麼？", "options": ["酯類在肝臟代謝，醯胺類在血漿代謝", "酯類在血漿被酯酶水解，醯胺類在肝臟代謝", "兩者都在腎臟代謝", "兩者代謝途徑完全相同"], "answer": 1, "explain": "酯類局麻藥主要在血漿中被假性膽鹼酯酶快速水解，代謝產物之一是對氨基苯甲酸（PABA），這也是酯類藥物較容易引起過敏反應的原因；醯胺類局麻藥則需要經過肝臟細胞色素酵素代謝，速度較慢，過敏反應相對少見，這個差異在臨床選藥時很重要。"}, {"q": "破骨細胞活性增加時，血液中哪個生化標記通常會上升？", "options": ["鹼性磷酸酶", "骨鈣素", "抗酒石酸酸性磷酸酶", "維生素D"], "answer": 2, "explain": "抗酒石酸酸性磷酸酶（TRAP）是破骨細胞特有的酵素標記，活性上升代表骨吸收作用增強；相對地，鹼性磷酸酶跟骨鈣素則是成骨細胞活性的標記，兩者的比例變化在牙周病骨吸收跟矯正牙齒移動的生化監測上都有應用。"}]}, {"icon": "🔬", "zh": "病理學", "desc": "切片下去看到什麼、腫瘤怎麼分類、發炎反應怎麼跑——這科是在練「看圖說故事」的能力。", "topics": [{"z": "齲齒病理進程", "e": "從牙釉質脫鈣到牙本質侵犯到牙髓反應，每階段的組織學變化都不一樣"}, {"z": "牙周炎組織學變化", "e": "上皮釘突增生、結締組織發炎細胞浸潤、齒槽骨吸收是牙周炎的典型組織學三大特徵"}, {"z": "口腔癌前病變", "e": "白斑症、紅斑症的組織學分級（輕中重度異生）跟惡性轉化風險直接相關"}, {"z": "囊腫病理分類", "e": "齒源性跟非齒源性囊腫依上皮來源跟內襯上皮型態做病理分類"}, {"z": "肉芽組織形成", "e": "由新生血管、纖維母細胞、發炎細胞組成，是傷口癒合中期的典型病理表現"}, {"z": "急性與慢性發炎細胞", "e": "急性發炎以中性球為主，慢性發炎以淋巴球、漿細胞、巨噬細胞為主，組織切片要會辨認"}, {"z": "細胞異生分級", "e": "輕度異生侵犯下1/3上皮，中度侵犯下2/3，重度侵犯全層但未突破基底膜"}, {"z": "唾液腺腫瘤病理", "e": "多型性腺瘤是最常見良性唾液腺腫瘤，黏液表皮癌是最常見惡性唾液腺腫瘤"}, {"z": "牙髓炎組織病理", "e": "可逆性牙髓炎只有局部輕微發炎細胞浸潤，不可逆牙髓炎則有大量發炎細胞跟微小膿瘍"}, {"z": "骨纖維病變", "e": "骨化纖維瘤、纖維性骨失養症在組織學上有重疊但臨床行為不同，需要影像配合判斷"}, {"z": "上皮化生現象", "e": "長期慢性刺激（如吸菸）會讓上皮細胞發生鱗狀化生，是癌前變化的早期表現之一"}, {"z": "肉芽腫性發炎", "e": "由巨噬細胞聚集形成的特殊發炎型態，跟結核病、結節病等特定疾病有關"}, {"z": "色素病變病理", "e": "黑色素细胞痣、重金屬沉積（如鉍線）在組織學上的色素分佈位置不同"}, {"z": "骨壞死病理機轉", "e": "放射線性骨壞死、藥物相關性顎骨壞死（MRONJ）的組織學共同特徵是血管供應受損"}, {"z": "傷口癒合三階段", "e": "發炎期、增生期、重塑期，每期的細胞種類跟主要活動都不一樣，影響拔牙傷口癒合速度"}], "quiz": [{"q": "組織切片中觀察到上皮細胞異常增生已達上皮全層厚度，但仍侷限於基底膜內，這屬於哪種病理診斷？", "options": ["輕度異生", "重度異生", "原位癌", "侵襲性癌"], "answer": 2, "explain": "原位癌（carcinoma in situ）的定義是細胞異常已經佔據全層上皮厚度，具有惡性細胞的所有特徵，但病變仍完全侷限在基底膜以內，尚未侵犯到底下的結締組織，這跟重度異生（只侵犯下2/3到接近全層但有些微差異）跟侵襲性癌（已突破基底膜）是不同的診斷分類。"}, {"q": "不可逆性牙髓炎在組織病理學上的典型表現是什麼？", "options": ["完全沒有發炎細胞", "局部輕微發炎細胞浸潤", "大量發炎細胞浸潤合併微小膿瘍形成", "牙髓組織完全纖維化"], "answer": 2, "explain": "不可逆性牙髓炎的組織學表現是牙髓組織內有大量的中性球、淋巴球浸潤，並可能形成局部的微小膿瘍（microabscess），這跟可逆性牙髓炎（只有輕微局部的發炎細胞浸潤，牙髓大部分組織仍健康）有明顯差別，這也是為什麼不可逆性牙髓炎一旦發生就無法靠移除刺激源來恢復。"}, {"q": "最常見的良性唾液腺腫瘤是哪一種？", "options": ["黏液表皮癌", "多型性腺瘤", "腺樣囊性癌", "沃辛氏瘤"], "answer": 1, "explain": "多型性腺瘤（pleomorphic adenoma）是唾液腺最常見的良性腫瘤，好發在腮腺，組織學上具有上皮跟間質成分混合的「多型性」特徵；黏液表皮癌則是最常見的惡性唾液腺腫瘤，兩者要分清楚不要搞混。"}, {"q": "急性發炎反應中，最先大量浸潤到發炎部位的白血球種類是什麼？", "options": ["淋巴球", "漿細胞", "中性球", "巨噬細胞"], "answer": 2, "explain": "急性發炎反應中，中性球（neutrophil）是最先大量湧入發炎部位的白血球，通常在幾小時內就會出現，主要負責吞噬細菌跟清除壞死組織；淋巴球、漿細胞、巨噬細胞則是慢性發炎反應中比較常見的細胞種類，組織切片看到的細胞種類能幫忙判斷發炎是急性還是慢性。"}, {"q": "藥物相關性顎骨壞死（MRONJ）的組織病理共同特徵主要跟什麼有關？", "options": ["細菌大量增生", "血管供應受損導致骨組織壞死", "神經損傷", "唾液腺萎縮"], "answer": 1, "explain": "MRONJ（常見於使用雙磷酸鹽類藥物或抗血管新生藥物的病人）的核心病理機轉是藥物抑制了破骨細胞活性跟血管新生，導致顎骨局部的血液供應嚴重受損，骨組織因為缺血缺氧而壞死，這也解釋了為什麼這類病人拔牙後傷口特別不容易癒合，且容易暴露壞死骨。"}, {"q": "傷口癒合的增生期主要由哪種細胞活動主導？", "options": ["中性球吞噬作用", "纖維母細胞與新生血管形成肉芽組織", "淋巴球免疫反應", "破骨細胞骨吸收"], "answer": 1, "explain": "傷口癒合分為發炎期（中性球、巨噬細胞清除壞死組織與細菌）、增生期（纖維母細胞增生合成膠原蛋白、新生血管長入形成肉芽組織）、重塑期（膠原蛋白重新排列、傷口收縮強化），增生期通常發生在受傷後第3天到第3週左右，是肉芽組織形成最旺盛的階段。"}]}, {"icon": "💊", "zh": "藥理學", "desc": "局麻怎麼選、抗生素怎麼用、止痛藥會不會打架——這科考的是「臨床用藥不要出包」。", "topics": [{"z": "局麻藥作用機轉", "e": "阻斷神經細胞膜上的鈉離子通道，讓神經無法產生動作電位，痛覺訊號傳不出去"}, {"z": "局麻藥分類比較", "e": "利多卡因、阿替卡因、布比卡因起效時間跟作用時間不同，臨床選擇要看治療長度"}, {"z": "血管收縮劑使用原則", "e": "局麻藥加腎上腺素能延長作用時間並減少出血，但心血管疾病病人要小心劑量"}, {"z": "抗生素選擇原則", "e": "Amoxicillin是牙科感染首選，過敏病人改用Clindamycin，要看感染類型跟病人狀況"}, {"z": "NSAIDs交互作用", "e": "跟抗凝血藥物併用會增加出血風險，跟某些降血壓藥併用會降低藥效"}, {"z": "鎮靜藥物使用", "e": "笑氣（N2O）跟苯二氮平類藥物在牙科鎮靜的適應症跟禁忌症不同"}, {"z": "特殊病人用藥調整", "e": "洗腎病人、肝功能不良病人、孕婦的牙科用藥都要特別調整劑量或避開特定藥物"}, {"z": "雙磷酸鹽類藥物風險", "e": "長期使用雙磷酸鹽類藥物（治療骨質疏鬆）的病人，拔牙前要評估MRONJ風險"}, {"z": "抗凝血藥物管理", "e": "使用Warfarin或新型口服抗凝血藥的病人，拔牙前是否要停藥要跟內科醫師討論"}, {"z": "類固醇使用原則", "e": "局部跟全身性類固醇在口腔黏膜疾病治療的適應症，長期使用要注意副作用"}, {"z": "氟化物藥理作用", "e": "局部塗氟、含氟漱口水、口服氟錠的使用劑量跟適應年齡都不一樣"}, {"z": "抗黴菌藥物使用", "e": "念珠菌感染常用Nystatin局部漱口或Fluconazole全身治療，要注意藥物交互作用"}, {"z": "局麻藥過敏與毒性反應", "e": "真正過敏少見，大多是劑量過量造成的中樞神經毒性反應，要會分辨處置"}, {"z": "止痛藥階梯使用", "e": "輕度疼痛先用Acetaminophen或NSAIDs，中重度疼痛才考慮加入鴉片類藥物"}, {"z": "術前抗生素預防性給藥", "e": "心內膜炎高風險病人或特定關節置換病人，拔牙前需要預防性使用抗生素"}], "quiz": [{"q": "局部麻醉藥的主要作用機轉是什麼？", "options": ["阻斷鈣離子通道", "阻斷鈉離子通道", "促進鉀離子外流", "抑制乙醯膽鹼釋放"], "answer": 1, "explain": "局部麻醉藥透過阻斷神經細胞膜上的電位依賴性鈉離子通道，讓神經細胞無法產生足夠的去極化來形成動作電位，痛覺訊號因此無法往中樞傳遞，這是所有局麻藥共同的核心作用機轉。"}, {"q": "對Penicillin類藥物過敏的病人，牙科感染治療通常會改用哪種抗生素？", "options": ["Amoxicillin", "Clindamycin", "Tetracycline", "Penicillin V"], "answer": 1, "explain": "Clindamycin是對Penicillin過敏病人在牙科感染治療上的常見替代選擇，因為它對厭氧菌跟一般口腔常見致病菌都有良好效果，且跟Penicillin類藥物沒有交叉過敏反應。"}, {"q": "使用局麻藥加腎上腺素時，對於控制不佳的心血管疾病病人最主要要注意什麼？", "options": ["腎上腺素會降低麻醉效果", "腎上腺素可能誘發心律不整或血壓上升", "腎上腺素會延長麻醉時間到危險程度", "腎上腺素會增加過敏反應風險"], "answer": 1, "explain": "腎上腺素是強效的血管收縮劑，對於控制不佳的高血壓、心律不整或近期心肌梗塞的病人，可能誘發血壓劇烈上升或心律不整，臨床上會建議使用不含或低濃度腎上腺素的局麻藥，並控制總劇量。"}, {"q": "長期使用雙磷酸鹽類藥物的病人，拔牙前最需要評估的風險是什麼？", "options": ["術後出血不止", "藥物相關性顎骨壞死（MRONJ）", "局麻藥過敏反應", "傷口感染機率特別高"], "answer": 1, "explain": "雙磷酸鹽類藥物會抑制破骨細胞活性同時影響血管新生，長期使用（尤其靜脈注射型治療癌症骨轉移的病人）會增加拔牙後顎骨壞死的風險，臨床上需要詳細評估用藥史、用藥途徑跟劇量，必要時跟開藥醫師討論是否暫停用藥。"}, {"q": "NSAIDs跟抗凝血藥物（如Warfarin）併用時，主要的風險是什麼？", "options": ["藥效互相抵消", "增加出血風險", "降低止痛效果", "增加肝臟負擔"], "answer": 1, "explain": "NSAIDs本身會抑制血小板凝集功能並可能造成胃腸道黏膜損傷，跟抗凝血藥物併用會疊加出血風險，臨床上對於正在服用抗凝血藥物的病人，止痛藥首選通常會是Acetaminophen而非NSAIDs。"}, {"q": "笑氣（N2O）鎮靜在牙科臨床上的主要禁忌症之一是什麼？", "options": ["高血壓病人", "懷孕初期病人", "氣喘病人", "糖尿病病人"], "answer": 1, "explain": "雖然笑氣鎮靜整體安全性高，但對於懷孕初期（尤其前三個月）的病人通常會建議避免使用，因為理論上長期或高濃度暴露可能影響胎兒發育；另外鼻腔阻塞、嚴重肺部疾病的病人也要謹慎評估使用笑氣鎮靜。"}]}, {"icon": "🦠", "zh": "微免學", "desc": "口腔裡住著哪些菌、牙周致病菌長怎樣、過敏免疫反應怎麼跑——這科是搞懂「敵人是誰」。", "topics": [{"z": "牙周致病菌分類", "e": "紅色複合體（牙齦卟啉單胞菌、福賽斯坦氏菌、密螺旋體）是重度牙周炎的主要致病菌群"}, {"z": "牙菌斑生物膜形成階段", "e": "從獲得性膜形成到早期定殖菌附著、共聚合、成熟複雜生物膜，每階段菌種不同"}, {"z": "宿主免疫反應", "e": "牙周炎的組織破壞主要是身體自己的免疫發炎反應過度造成，不是細菌直接破壞"}, {"z": "念珠菌感染", "e": "白色念珠菌是口腔最常見的伺機性感染菌，免疫力下降或長期戴假牙容易誘發"}, {"z": "病毒性口腔病灶", "e": "單純疱疹病毒、水痘帶狀疱疹病毒在口腔黏膜的典型表現跟好發位置不同"}, {"z": "變形鏈球菌致齲機轉", "e": "高度耐酸、產酸能力強，又能合成細胞外多醣幫助自己黏附，是最重要的致齲菌"}, {"z": "先天免疫與後天免疫", "e": "先天免疫（巨噬細胞、補體系統）反應快但無特異性，後天免疫（T細胞、B細胞）有記憶性"}, {"z": "補體系統活化", "e": "古典途徑、替代途徑、凝集素途徑三條活化方式，在牙周發炎反應中都有參與"}, {"z": "過敏反應分類", "e": "第一型立即過敏（IgE）、第四型遲發過敏（細胞性），局麻藥過敏大多誤判為第一型但其實罕見"}, {"z": "自體免疫疾病口腔表現", "e": "天疱瘡、類天疱瘡、扁平苔癬等自體免疫疾病常常先在口腔黏膜出現病灶"}, {"z": "細菌生物膜抗藥性", "e": "生物膜內的細菌對抗生素的抵抗力遠高於游離菌，這是牙周病難以單靠藥物根治的原因"}, {"z": "HPV與口腔病變", "e": "人類乳突病毒特定型別跟口咽癌的發生有關，跟傳統菸酒致癌的口腔癌型態略有不同"}, {"z": "免疫低下病人口腔照護", "e": "化療、HIV感染等免疫低下病人，口腔伺機性感染風險大幅提高，照護要更謹慎"}, {"z": "細胞激素與牙周破壞", "e": "IL-1、TNF-α、PGE2等發炎介質直接參與齒槽骨吸收，是牙周病免疫機轉的核心"}, {"z": "疫苗與口腔微生物", "e": "目前還沒有商業化的齲齒或牙周病疫苗，但相關研究持續進行中，是考試常考的趨勢題"}], "quiz": [{"q": "紅色複合體（red complex）主要跟哪種疾病的嚴重程度高度相關？", "options": ["齲齒", "重度牙周炎", "口腔念珠菌感染", "單純疱疹感染"], "answer": 1, "explain": "紅色複合體包含牙齦卟啉單胞菌、福賽斯坦氏菌、齒垂體密螺旋體三種細菌，這三者常一起出現在深牙周囊袋中，跟重度、進展快速的牙周炎高度相關，是牙周病微生物學裡最重要的致病菌群分類。"}, {"q": "牙周炎造成齒槽骨跟結締組織破壞，主要機轉是什麼？", "options": ["細菌直接分泌酵素破壞組織", "身體自身的免疫發炎反應過度活化", "病毒感染導致細胞凋亡", "真菌侵入骨組織"], "answer": 1, "explain": "雖然牙菌斑細菌是牙周炎的起始因子，但實際造成齒槽骨吸收跟結締組織破壞的主因，是身體免疫系統對抗細菌時釋放的發炎介質（IL-1、TNF-α、PGE2等）過度活化，間接活化破骨細胞造成的，這也是為什麼牙周病治療強調控制發炎反應而不只是殺菌。"}, {"q": "白色念珠菌感染在哪種臨床情境下最容易發生？", "options": ["年輕健康成人", "長期使用抗生素或免疫力下降的病人", "剛拔完牙的病人", "正在矯正牙齒的病人"], "answer": 1, "explain": "白色念珠菌是口腔正常菌叢的一部分，但在長期使用廣效抗生素（破壞正常菌叢平衡）、免疫力下降（如糖尿病、HIV感染、化療）、長期戴活動假牙或乾燥症等情況下，會變成伺機性感染菌，造成口腔念珠菌症。"}, {"q": "牙菌斑生物膜內的細菌對抗生素的抵抗力，比游離（浮游）狀態的同種細菌如何？", "options": ["抵抗力相同", "抵抗力明顯較低", "抵抗力明顯較高", "完全不受抗生素影響"], "answer": 2, "explain": "生物膜結構提供了物理屏障，加上細菌在生物膜內代謝速率較慢、基因表現改變，讓生物膜內細菌對抗生素的抵抗力可以比游離狀態高出數十倍到上千倍，這正是為什麼牙周病的治療必須靠物理性的牙結石刮除來破壞生物膜結構，單靠口服抗生素效果有限。"}, {"q": "局部麻醉藥物的「過敏反應」在臨床上，真正屬於免疫性過敏（如IgE介導）的比例如何？", "options": ["非常常見，超過50%的不良反應都是真過敏", "相當少見，大多數不良反應其實是其他原因", "完全不可能發生過敏反應", "只在使用酯類局麻藥時才會發生"], "answer": 1, "explain": "臨床上病人自稱「局麻藥過敏」的情況中，真正符合免疫性過敏機轉（IgE介導的第一型過敏）的比例非常低，大多數所謂的「過敏反應」其實是腎上腺素引起的心悸緊張、血管迷走神經反應（暈厥）、或單純的心理性焦慮反應，正確的病史詢問跟鑑別非常重要。"}, {"q": "哪一種口腔黏膜疾病最常被視為自體免疫疾病的早期口腔表現？", "options": ["齲齒", "單純疱疹", "天疱瘡（Pemphigus）", "念珠菌感染"], "answer": 2, "explain": "天疱瘡是一種自體免疫水疱性疾病，身體產生對抗表皮細胞間黏連蛋白（desmoglein）的自體抗體，導致表皮細胞鬆解形成水疱，超過一半的天疱瘡病人會先在口腔黏膜出現病灶（破裂的水疱、潰瘍），早期診斷對預後非常重要。"}]}, {"icon": "🪥", "zh": "牙體復形學", "desc": "補牙材料怎麼選、根管前處理怎麼做、樹脂技術要注意什麼——這科是「補牙的學問」。", "topics": [{"z": "複合樹脂分類", "e": "依填料粒徑分微填型、奈米填型、混合型，物理性質跟拋光性、強度都不一樣"}, {"z": "黏結技術原理", "e": "酸蝕牙釉質形成微孔讓樹脂機械鎖合，牙本質黏結則靠混合層形成化學跟機械結合"}, {"z": "窩洞分類系統", "e": "Black's分類依窩洞發生位置分第一類到第六類，是補牙設計的基本語言"}, {"z": "樹脂收縮應力", "e": "光聚合樹脂硬化時會產生聚合收縮，分層填補技術能降低收縮造成的邊緣滲漏"}, {"z": "美容貼面設計", "e": "瓷貼面或樹脂貼面在前牙美容修復的適應症，要考慮咬合跟齒質保留量"}, {"z": "玻璃離子體材料", "e": "能釋放氟離子且跟牙齒化學結合，常用在兒童牙科或高齲齒風險病人的修復材料"}, {"z": "銀汞合金特性", "e": "傳統後牙修復材料，強度高但有汞含量爭議，現在臨床使用比例逐漸下降"}, {"z": "窩洞預備原則", "e": "保守去除病灶同時保留健康齒質，現代趨勢從「擴展預防」轉為「微創治療」"}, {"z": "齲齒檢測工具", "e": "雷射螢光偵測、咬翼片、染色劑能輔助臨床探針檢查找出隱藏的齲齒病灶"}, {"z": "牙齒美白原理", "e": "過氧化氫類美白劑透過氧化反應分解牙齒內的色素分子，淡化變色"}, {"z": "間接修復體製作流程", "e": "印模、灌模、技工室製作、試戴黏著，每個步驟的誤差都會影響最終密合度"}, {"z": "複合樹脂收縮補償技術", "e": "分層填補法、軟啟動聚合技術能降低聚合收縮應力造成的牙齒敏感或邊緣裂縫"}, {"z": "齲齒風險評估", "e": "飲食習慣、唾液流速、菌斑控制能力等因子綜合評估，決定修復材料的選擇策略"}, {"z": "牙齒敏感處理", "e": "牙頸部敏感常跟牙本質小管暴露有關，去敏感劑跟脫敏牙膏的作用機轉不同"}, {"z": "修復體邊緣密合度評估", "e": "邊緣滲漏會導致二次齲齒，臨床檢查跟X光判讀都是評估修復品質的重要工具"}], "quiz": [{"q": "Black's窩洞分類中，發生在前牙鄰接面、不涉及切端角的窩洞屬於第幾類？", "options": ["第一類", "第二類", "第三類", "第四類"], "answer": 2, "explain": "Black's第三類窩洞是指發生在前牙鄰接面但未涉及切端角的齲齒，如果鄰接面齲齒已經破壞到切端角，就會被歸類為第四類；第二類則是後牙的鄰接面齲齒，第一類是窩溝裂縫處的齲齒，分類系統是補牙設計溝通的共同語言。"}, {"q": "複合樹脂分層填補的主要目的是什麼？", "options": ["增加修復體的美觀度", "降低聚合收縮應力，減少邊緣滲漏", "加快治療時間", "降低材料成本"], "answer": 1, "explain": "複合樹脂在光聚合硬化過程中會產生收縮，如果一次填滿整個窩洞再聚合，收縮應力會集中在窩洞底部跟邊緣，容易造成微裂縫或邊緣滲漏；分層填補（每層厚度約2mm以內）能讓每層分別聚合收縮，分散應力，降低邊緣滲漏跟術後敏感的機率。"}, {"q": "玻璃離子體材料在臨床上的主要優勢是什麼？", "options": ["美觀效果最好", "強度最高", "能持續釋放氟離子並跟牙齒化學黏結", "完全不會有邊緣滲漏"], "answer": 2, "explain": "玻璃離子體最大的特色是能跟牙齒組織形成真正的化學黏結（不只是機械鎖合），同時材料本身能持續緩慢釋放氟離子，對周圍齒質有額外的防齲效果，這也是為什麼它常被用在兒童牙科或高齲齒風險病人的修復治療。"}, {"q": "現代窩洞預備的趨勢從傳統「擴展預防」轉變為什麼概念？", "options": ["完全不去除任何齲齒組織", "盡可能擴大窩洞範圍預防復發", "微創治療，保守去除病灶並保留健康齒質", "只使用銀汞合金材料"], "answer": 2, "explain": "傳統的「擴展預防」（extension for prevention）概念認為應該把窩洞邊緣延伸到自我清潔區域以預防復發齲齒，但現代牙科隨著黏結技術跟材料進步，趨勢轉為「微創治療」（minimally invasive dentistry），強調盡量保留健康齒質，只去除真正被細菌侵犯的病變組織。"}, {"q": "牙頸部敏感最常見的成因是什麼？", "options": ["牙髓發炎", "牙本質小管暴露", "琥珀酸鹽沉積", "牙周韌帶發炎"], "answer": 1, "explain": "牙頸部敏感最常見的原因是牙齦萎縮或刷牙磨損導致牙根表面的牙本質小管暴露，外界的溫度、化學或機械刺激容易透過開放的小管引發牙髓內神經反應，造成短暫尖銳的敏感痛，去敏感劑的作用原理大多是封閉小管或降低神經敏感度。"}, {"q": "複合樹脂依填料粒徑分類，奈米填型樹脂相對於傳統混合型樹脂的主要優勢是什麼？", "options": ["黏結力特別強", "拋光性更好且兼具良好的機械強度", "完全不會有聚合收縮", "成本較低"], "answer": 1, "explain": "奈米填型複合樹脂的填料粒徑極小（奈米級），能同時兼顧優異的拋光性（表面更光滑，較不容易染色或藏污垢）以及良好的機械強度跟磨耗抵抗力，是目前臨床上前牙美容修復跟後牙功能性修復都廣泛使用的材料類型。"}]}, {"icon": "🩺", "zh": "牙髓病學", "desc": "根管治療怎麼做、牙髓怎麼診斷、根管材料怎麼選——簡單說就是「神經抽掉之後的事」。", "topics": [{"z": "牙髓炎診斷分類", "e": "正常牙髓、可逆性牙髓炎、不可逆性牙髓炎、牙髓壞死，每種臨床表現跟處置都不同"}, {"z": "牙髓活性測試", "e": "冷測試、電測試（EPT）能評估牙髓神經反應，但無法直接反映牙髓血流是否健康"}, {"z": "根管長度測量", "e": "根管長度電子測量儀搭配X光是現代根管治療確定工作長度的標準方法"}, {"z": "根管清創技術", "e": "鎮鎍合金根管器械配合化學沖洗液（次氯酸鈉），物理跟化學雙重清除感染物質"}, {"z": "根管充填材料", "e": "牙膠尖搭配封閉劑是最常用的根管充填材料組合，目標是達到三維立體緊密填充"}, {"z": "根管解剖變異", "e": "側枝根管、根管分歧、C型根管等解剖變異是根管治療失敗的常見隱藏因子"}, {"z": "牙髓再生治療", "e": "年輕恆牙牙髓壞死後，誘導根尖周圍組織重新生長的再生性牙髓治療新趨勢"}, {"z": "根管治療失敗處理", "e": "再治療、根尖手術或拔牙是根管治療失敗後的選擇，要評估根管解剖跟病灶大小"}, {"z": "牙髓鈍化與閉塞", "e": "老化或外傷後牙髓腔可能逐漸鈍化縮小，增加根管定位治療的難度"}, {"z": "根尖周病灶癒合評估", "e": "治療後追蹤X光，根尖透視區縮小代表骨頭再生癒合，是治療成功的指標"}, {"z": "外傷牙的牙髓處理", "e": "牙齒外傷後牙髓存活機率跟外傷類型、根尖是否閉合有關，處置原則不同"}, {"z": "牙髓切除術原則", "e": "年輕恆牙根尖未閉合時的牙髓部分切除保存治療，目的是讓牙根繼續發育"}, {"z": "顯微根管治療", "e": "使用牙科手術顯微鏡能大幅提升細小根管或複雜解剖結構的處理精準度"}, {"z": "根管器械分離處理", "e": "治療中器械斷裂在根管內的處置原則，要評估能否取出或繞過繼續治療"}, {"z": "牙髓牙周聯合病變", "e": "牙髓感染跟牙周感染可能透過副根管或根尖互相影響，診斷上要區分原發病灶"}], "quiz": [{"q": "電測試（EPT）跟冷測試主要用來評估牙髓的什麼狀態？", "options": ["牙髓血流量", "牙髓神經反應性", "牙髓壓力", "牙髓礦化程度"], "answer": 1, "explain": "電測試跟冷測試都是透過刺激牙髓內的神經末梢來評估神經反應性，但這兩種測試都無法直接反映牙髓的真實血流狀態，這也是為什麼有些情況下（如外傷牙）即使神經反應暫時消失，牙髓血流可能仍然存在，這個概念在臨床判斷上很重要，避免過早診斷牙髓壞死。"}, {"q": "根管清創過程中最常用的化學沖洗液是什麼？", "options": ["生理食鹽水", "次氯酸鈉", "過氧化氫", "酒精"], "answer": 1, "explain": "次氯酸鈉（NaOCl）具有強效的殺菌能力跟溶解有機組織的特性，能有效清除根管內殘留的牙髓組織碎片跟生物膜，是目前根管治療最常用的化學沖洗液，但使用時要小心避免溢出造成軟組織化學灼傷。"}, {"q": "年輕恆牙根尖未完全閉合時發生外傷導致牙髓暴露，臨床上常考慮哪種保守治療方式？", "options": ["立即拔牙", "直接進行根管治療", "部分牙髓切除術，保留健康牙髓促進根尖發育", "完全不做任何處置"], "answer": 2, "explain": "對於根尖尚未閉合的年輕恆牙，臨床上會優先考慮部分牙髓切除術（pulpotomy），只移除受感染或受傷的表層牙髓組織，保留底下健康的牙髓，目的是讓牙根能繼續正常發育，避免因為早期完全抽神經導致根尖發育中斷、牙根脆弱的問題。"}, {"q": "根管治療後追蹤X光，發現原本的根尖透視區範圍縮小，這代表什麼？", "options": ["感染惡化", "治療失敗需要再治療", "骨頭正在再生癒合，治療方向正確", "牙根正在吸收"], "answer": 2, "explain": "根尖周圍病灶（透視區）縮小代表周圍的骨組織正在再生癒合，是根管治療成功的重要追蹤指標之一，完整的癒合評估通常需要追蹤6個月到數年不等，期間透視區應該持續縮小直到完全消失或穩定。"}, {"q": "根管治療中器械在根管內斷裂，臨床上首要評估的因素不包括哪一項？", "options": ["斷裂器械的位置（根管的哪一段）", "是否能繞過或取出斷裂器械", "病人的全身健康狀況", "根管原本的彎曲程度"], "answer": 2, "explain": "器械分離後的處置主要評估重點是斷裂器械在根管中的位置（越靠近根尖通常越難取出）、根管本身的彎曲程度跟取出的可行性，以及是否能繞過繼續完成根管充填；病人全身健康狀況雖然在整體治療規劃上重要，但跟器械分離的局部處置決策關聯性較低。"}, {"q": "使用牙科手術顯微鏡進行顯微根管治療，最主要的臨床優勢是什麼？", "options": ["治療速度更快", "能大幅提升細小根管或複雜解剖結構的處理精準度", "完全不需要X光輔助", "降低材料成本"], "answer": 1, "explain": "牙科手術顯微鏡能提供高倍率放大跟良好的照明，讓臨床醫師能更精準地找到細小的根管口、處理側枝根管或複雜的根管解剖變異，大幅提升治療的精準度跟成功率，特別是在處理根管再治療或解剖結構複雜的牙齒時優勢更明顯。"}]}, {"icon": "🦷", "zh": "牙周病學", "desc": "牙周炎怎麼分期、牙周手術怎麼做、植牙周圍要怎麼照顧——這科是「牙齦牙骨保衛戰」。", "topics": [{"z": "牙周病新分類系統", "e": "2018年新分類用Stage（嚴重度/複雜度）跟Grade（進展速度/風險）兩維度評估"}, {"z": "牙周探測深度與附著喪失", "e": "探測深度是牙齦邊緣到囊袋底部，附著喪失要再加上牙齦萎縮的距離"}, {"z": "牙周致病菌與生物膜理論", "e": "現代觀念認為牙周病是生物膜失調（dysbiosis）跟宿主免疫反應共同造成"}, {"z": "牙周翻瓣手術", "e": "暴露齒槽骨跟根面以便徹底清創，適用於非手術治療效果不佳的深囊袋"}, {"z": "牙周再生療法", "e": "引導性組織再生術（GTR）、生長因子應用，目標是真正重建流失的骨頭跟韌帶"}, {"z": "植體周圍炎", "e": "植牙版本的牙周炎，機轉類似但治療更困難，因為植體表面結構跟天然牙不同"}, {"z": "牙周維護治療", "e": "治療後定期回診的牙周維護，間隔時間要依病人風險程度個別化調整"}, {"z": "牙周韌帶纖維分類", "e": "水平纖維、斜行纖維、根間纖維等不同走向，跟牙齒承受咬合力的方式有關"}, {"z": "牙齦萎縮分類", "e": "Miller分類法依牙齦萎縮跟周圍骨頭、軟組織狀況分級，影響牙根覆蓋手術的預後"}, {"z": "牙周膿瘍處理", "e": "急性牙周膿瘍要先引流跟控制感染，跟牙髓來源的膿瘍要做好鑑別診斷"}, {"z": "全身疾病與牙周病關聯", "e": "糖尿病、心血管疾病、懷孕都跟牙周病有雙向影響，是近年很熱門的考點"}, {"z": "牙周手術器械與技術", "e": "骨刀、刮治器、顯微縫合技術，現代牙周手術趨向微創跟組織保存"}, {"z": "咬合創傷與牙周病", "e": "咬合力異常本身不會引發牙周炎，但會加重已存在牙周病的破壞速度"}, {"z": "牙周病風險因子評估", "e": "吸菸、糖尿病控制不良、遺傳因子都是牙周病進展速度的重要風險因子"}, {"z": "牙周牙髓聯合病變診斷", "e": "原發牙周、原發牙髓或真正聯合病變的鑑別，會影響治療順序跟預後判斷"}], "quiz": [{"q": "2018年牙周病新分類系統用哪兩個維度來評估疾病？", "options": ["年齡與性別", "Stage（嚴重度/複雜度）與Grade（進展速度/風險）", "牙齦顏色與探測深度", "菌種數量與發炎指數"], "answer": 1, "explain": "2018年世界牙周病學會跟美國牙周病學會聯合提出的新分類系統，用Stage反映疾病目前的嚴重度跟治療複雜度（依附著喪失、骨吸收程度、牙齒喪失數分為I到IV期），用Grade反映疾病未來進展的速度跟風險因子（依吸菸、糖尿病控制等因素分為A、B、C級），這個雙維度系統比舊分類更能反映個人化的疾病狀況。"}, {"q": "植體周圍炎的治療為什麼比天然牙的牙周炎更具挑戰性？", "options": ["植體不會有發炎反應", "植體表面結構跟天然牙根面不同，影響清創跟再生治療效果", "植體周圍不會有細菌附著", "植體周圍炎不需要治療"], "answer": 1, "explain": "植體表面（鈍化處理、螻紋設計）的結構特性，加上植體周圍缺乏天然的牙周韌帶纖維附著，讓清創器械難以徹底清潔複雜的表面結構，同時植體周圍的軟組織癒合機轉也跟天然牙周圍組織不完全相同，這些因素都讓植體周圍炎的治療成功率跟天然牙牙周炎相比更具挑戰性。"}, {"q": "牙周韌帶中的「斜行纖維」主要功能是什麼？", "options": ["抵抗水平方向的力量", "抵抗垂直咬合壓力，把力量轉換分散到齒槽骨", "連接牙根之間", "固定牙齦邊緣"], "answer": 1, "explain": "斜行纖維（oblique fiber）是牙周韌帶中數量最多的纖維群，走向從牙骨質斜向往上連到齒槽骨，主要功能是吸收垂直方向的咬合壓力並把力量轉換分散到周圍骨頭，避免力量直接集中在牙根尖端造成損傷，這個解剖設計是牙齒能承受日常咀嚼力量的關鍵。"}, {"q": "咬合創傷（occlusal trauma）單獨存在時，會不會直接引發牙周炎？", "options": ["會，咬合力過大就會直接造成牙周炎", "不會，但會加速已存在牙周病的破壞進展速度", "會，且是牙周炎最主要的病因", "跟牙周炎完全沒有任何關係"], "answer": 1, "explain": "現代牙周病學的共識是，單純的咬合創傷（沒有牙菌斑相關發炎）不會直接引發牙周附著喪失或骨吸收，但如果牙齒已經存在牙菌斑引發的牙周炎，過大的咬合力會加重既有的破壞速度，這個概念叫做「共同破壞因子」（co-destructive factor），臨床上調整咬合可以作為牙周治療的輔助手段但不是根本治療。"}, {"q": "糖尿病跟牙周病之間被認為存在什麼樣的關係？", "options": ["完全無關", "單向影響，只有糖尿病會影響牙周病", "雙向影響，兩者互相加重彼此的嚴重度", "只有牙周病會影響糖尿病"], "answer": 2, "explain": "糖尿病跟牙周病被證實存在雙向關係：血糖控制不良會增加牙周組織發炎反應跟破壞速度，而嚴重的牙周炎本身造成的全身慢性發炎狀態，又會讓血糖控制變得更困難，這也是為什麼牙周病常被稱為糖尿病的「第六併發症」，治療牙周病有助於改善血糖控制。"}, {"q": "引導性組織再生術（GTR）的核心治療目標是什麼？", "options": ["只是清除牙結石", "真正重建因牙周炎流失的齒槽骨跟牙周韌帶", "只改善牙齦美觀", "只是降低牙齦發炎"], "answer": 1, "explain": "GTR技術使用屏障膜（吸收性或非吸收性）阻隔快速增生的上皮細胞跟結締組織進入骨缺損區，讓增生速度較慢的骨細胞跟牙周韌帶細胞有機會優先填補缺損，目標是真正再生出新的齒槽骨、牙骨質跟功能性的牙周韌帶附著，而不只是表面的修復，這跟一般翻瓣清創手術只是清潔的目的不同。"}]}, {"icon": "😬", "zh": "贋復牙科學", "desc": "全口假牙、固定假牙、植牙贋復怎麼設計——這科是「沒牙齒了怎麼辦」的解決方案。", "topics": [{"z": "全口義齒咬合設計", "e": "雙側平衡咬合是全口假牙的標準設計，目的是讓假牙在各種咬合動作下都保持穩定"}, {"z": "固定假牙支台齒預備", "e": "牙齒磨除量要平衡保留齒質強度跟提供足夠空間給贋復材料厚度"}, {"z": "植牙贋復選擇", "e": "單牙、固定式或活動式植牙贋復的選擇要考慮缺牙數量、骨質、咬合空間"}, {"z": "活動義齒卡環設計", "e": "卡環提供固持力但要避免對基牙產生過大側向力，設計要平衡固持與美觀"}, {"z": "贋復材料特性", "e": "全瓷、金屬燒附瓷、樹脂材料的強度、美觀、生物相容性各有優劣"}, {"z": "印模技術與材料", "e": "準確的印模是贋復成功的基礎，不同印模材料的精準度跟操作時間都不同"}, {"z": "咬合垂直高度評估", "e": "全口無牙缺失病人重建咬合垂直高度，過高或過低都會影響功能跟外觀"}, {"z": "贋復體邊緣設計", "e": "牙齦上緣、齊平或牙齦下緣的邊緣設計選擇，會影響牙齦健康跟美觀"}, {"z": "活動義齒基底適合度", "e": "基底跟黏膜密合度直接影響假牙的固持力跟穩定性，定期調整很重要"}, {"z": "植牙負重時機", "e": "立即負重、早期負重、傳統延遲負重的選擇要依骨整合狀況跟初期穩定度決定"}, {"z": "贋復前外科準備", "e": "骨增量、軟組織增量手術，目的是改善贋復條件提升最終美觀跟功能效果"}, {"z": "贋復體美學評估", "e": "牙齒比例、笑線、牙齦顯露程度都是前牙美容贋復設計要考慮的因素"}, {"z": "咬合面設計概念", "e": "解剖式、半解剖式、無凸面咬合設計適合不同咀嚼肌力跟齒槽骨狀況的病人"}, {"z": "贋復體維護與壽命", "e": "固定假牙跟活動假牙的長期維護方式不同，定期回診評估邊緣密合度很重要"}, {"z": "複雜病例贋復計畫", "e": "多科整合（牙周、矯正、贋復）的治療計畫設計，對複雜缺牙病例特別重要"}], "quiz": [{"q": "全口義齒設計強調「雙側平衡咬合」的主要目的是什麼？", "options": ["增加咀嚼效率", "讓假牙在各種咬合動作下保持穩定，避免翹動", "降低製作成本", "縮短製作時間"], "answer": 1, "explain": "由於全口義齒沒有牙周韌帶的本體感覺回饋，也沒有自然牙根固定在骨頭裡，雙側平衡咬合的設計能讓假牙在前伸、側向等各種下顎動作時，兩側牙齒都能維持接觸，避免單側翹動造成假牙脫落或基底組織受傷，這是維持全口假牙穩定性的關鍵設計概念。"}, {"q": "固定假牙支台齒磨除量的設計原則是什麼？", "options": ["磨得越多越好，確保贋復體夠堅固", "盡量平衡保留齒質強度跟提供足夠的贋復材料空間", "完全不需要磨除牙齒", "只磨咬合面，不磨側面"], "answer": 1, "explain": "支台齒預備需要在兩個目標之間取得平衡：磨除過少會讓贋復材料（尤其是強度較低的全瓷材料）厚度不足，容易在使用中崩裂；磨除過多則會過度削弱牙齒本身的結構強度，甚至增加牙髓暴露的風險，因此臨床上會依照選用的贋復材料種類設計適當的磨除量。"}, {"q": "植牙的「立即負重」相對於「傳統延遲負重」，主要的臨床考量是什麼？", "options": ["立即負重完全沒有風險", "立即負重需要植體初期穩定度足夠，且骨質條件良好", "延遲負重會讓骨整合失敗率更高", "兩者沒有任何差異"], "answer": 1, "explain": "立即負重（植牙手術當天或短時間內就裝戴臨時或永久贋復體）需要植體在植入時就達到足夠的初期穩定度（通常透過扭力值跟ISQ值評估），加上骨質密度條件良好，才能承受早期的咬合負荷而不影響骨整合過程；骨質條件不佳或初期穩定度不足的病例，傳統延遲負重（等待數個月骨整合完成後才裝戴贋復體）仍是更穩健的選擇。"}, {"q": "卡環設計在活動義齒上要避免什麼樣的力學問題？", "options": ["卡環太美觀", "對基牙產生過大的側向力，可能損傷牙周組織", "卡環材質太堅固", "卡環顏色太接近牙齒"], "answer": 1, "explain": "卡環提供活動義齒的固持力跟穩定性，但設計不當（如卡臂彈性不足、卡環位置不對）可能在義齒摘戴或咀嚼過程中對基牙產生過大的側向扭力，長期下來可能加速基牙的牙周組織破壞或造成牙齒鬆動，因此卡環設計需要兼顧固持力、穩定性跟對基牙的保護。"}, {"q": "贋復體邊緣設計選擇牙齦下緣（subgingival margin），最主要的考量通常是什麼？", "options": ["方便清潔", "美觀需求，遮蓋牙齒與贋復體交界的色差", "降低製作成本", "縮短贋復療程"], "answer": 1, "explain": "牙齦下緣邊緣設計常用在前牙美容區，目的是把贋復體跟天然牙交界處的邊緣藏在牙齦下方，避免在微笑時露出材料邊緣造成的色差或灰線，影響美觀；但這種設計相對牙齦上緣或齊平設計，更需要精準的印模技術跟病人良好的口腔衛生配合，否則容易引發牙齦發炎。"}, {"q": "複雜缺牙病例需要多科整合治療計畫（牙周、矯正、贋復），主要原因是什麼？", "options": ["增加治療費用", "單一科別治療無法達到最佳的長期功能跟美觀效果", "縮短治療時間", "降低治療難度"], "answer": 1, "explain": "複雜的缺牙病例常常合併牙周問題（骨缺損、牙齦萎縮）、咬合異常或缺牙空間不足等多重因素，單靠贋復科治療可能無法達到理想效果，例如矯正治療可以先排列好缺牙空間或調整咬合關係，牙周治療可以先改善軟硬組織條件，最後贋復治療才能在更穩固的基礎上達到長期穩定跟美觀的結果，這種跨科整合的治療計畫設計能力也是國考越來越重視的臨床推理題型。"}]}, {"icon": "📐", "zh": "齒顎矯正學", "desc": "咬合怎麼分類、矯正力學怎麼算、生長發育怎麼評估——這科是「牙齒排列整不整齊」的科學。", "topics": [{"z": "Angle氏咬合分類", "e": "依上下第一大臼齒的相對位置分第一、二、三類咬合不正，是矯正診斷的基本語言"}, {"z": "矯正生物力學", "e": "矯正力的大小、方向、作用點決定牙齒移動的型態，過大的力反而會延緩移動速度"}, {"z": "骨齡與生長評估", "e": "手腕骨X光或頸椎骨齡能評估病人剩餘生長潛力，影響矯正介入時機的選擇"}, {"z": "隱形矯正原理", "e": "透過一系列透明牙套漸進式施力移動牙齒，跟傳統矯正鋼線力學原理不完全相同"}, {"z": "顎骨手術矯正", "e": "骨性咬合不正超出矯正牙齒移動能改善的範圍時，需要正顎手術合併矯正治療"}, {"z": "牙齒移動型態", "e": "傾斜移動、平移、轉矩控制、壓入伸出，不同矯正器設計能達成的移動型態不同"}, {"z": "功能性矯正裝置", "e": "利用肌肉功能力或咬合誘導生長發育，常用在兒童混合齒列期的早期矯正"}, {"z": "矯正錯誤與牙根吸收", "e": "矯正力過大或方向錯誤可能造成牙根外吸收，是矯正治療的重要副作用考量"}, {"z": "擴弓裝置使用", "e": "快速上顎擴弓利用上顎中縫尚未骨化的特性，矯正上顎狹窄造成的咬合問題"}, {"z": "矯正錨定設計", "e": "微型骨釘提供絕對性的矯正錨定，大幅擴展傳統矯正力學能達成的牙齒移動範圍"}, {"z": "咬合不正病因分類", "e": "骨性、牙性、功能性咬合不正的成因不同，矯正治療策略也要對應調整"}, {"z": "矯正治療時機選擇", "e": "早期介入（混合齒列期）跟晚期治療（恆牙期）各有適應症，要看咬合不正的類型"}, {"z": "矯正後維持治療", "e": "矯正完成後牙齒有復發傾向，固定式或活動式維持器的選擇要看復發風險"}, {"z": "顳顎關節與矯正治療", "e": "矯正治療對顳顎關節健康的影響，跟咬合不正本身造成的關節壓力都要評估"}, {"z": "數位化矯正診斷工具", "e": "3D齒模掃描、CBCT影像分析，現代矯正診斷越來越依賴數位化工具輔助"}], "quiz": [{"q": "Angle氏咬合分類第二類（Class II）的定義是什麼？", "options": ["上下第一大臼齒正常咬合關係", "下顎第一大臼齒相對上顎第一大臼齒偏向遠心（後方）", "下顎第一大臼齒相對上顎第一大臼齒偏向近心（前方）", "只跟前牙咬合相關，不涉及大臼齒"], "answer": 1, "explain": "Angle氏分類以上下第一大臼齒的相對前後位置關係作為診斷基準：第一類是正常關係（下顎第一大臼齒近心頰尖咬在上顎第一大臼齒的頰側溝），第二類是下顎臼齒相對偏向遠心（後縮），第三類則是下顎臼齒相對偏向近心（前突），這個分類系統雖然簡單但仍是矯正臨床溝通最基本的語言。"}, {"q": "快速上顎擴弓（RPE）治療的生物學基礎主要利用什麼解剖特性？", "options": ["顎骨密度較高", "上顎中縫（中央縫合線）尚未完全骨化", "下顎骨可塑性較高", "牙周韌帶彈性較大"], "answer": 1, "explain": "快速上顎擴弓利用上顎骨中縫（midpalatal suture）在兒童跟青少年時期尚未完全骨化的特性，透過裝置施加側向力量，讓中縫逐漸分開並刺激新骨生成，達到擴張上顎寬度的效果；隨著年齡增長中縫逐漸骨化，成人若需要類似治療效果，通常需要搭配外科輔助才能達成。"}, {"q": "矯正力過大時，對牙齒移動速度會產生什麼影響？", "options": ["移動速度會更快", "移動速度反而會延緩，且增加牙根吸收風險", "完全不影響移動速度", "只會影響美觀不影響移動"], "answer": 1, "explain": "矯正牙齒移動依靠的是齒槽骨持續性的破骨成骨改建過程，這個生理過程需要適度而非過大的力量；如果矯正力過大，反而會壓迫牙周韌帶血管造成局部組織缺血壞死（玻璃樣變性），延緩正常的骨改建反應，同時大幅增加牙根外吸收的風險，這也是為什麼矯正治療強調使用適度、持續的輕力而非追求快速的大力。"}, {"q": "微型骨釘（mini-screw）在現代矯正治療中扮演什麼角色？", "options": ["取代所有傳統矯正器", "提供絕對性錨定，擴展矯正力學能達成的牙齒移動範圍", "只用在兒童病人", "只能用在拔牙矯正病例"], "answer": 1, "explain": "傳統矯正力學中，任何施力都會有反作用力（牛頓第三定律），錨定牙齒也會受到不想要的反向移動；微型骨釘植入齒槽骨後能提供「絕對性錨定」（不會受反作用力影響移動），讓矯正醫師能達成過去難以實現的牙齒移動型態（如大範圍壓入、整體後退），大幅擴展了矯正力學的可能性，是近年矯正治療的重要技術進展。"}, {"q": "骨性咬合不正超出矯正牙齒移動能改善的範圍時，臨床上會考慮什麼治療方式？", "options": ["持續加大矯正力量", "正顎手術合併矯正治療", "只做美容貼面掩飾", "完全不需要治療"], "answer": 1, "explain": "當咬合不正的根本原因是上下顎骨骼大小或位置關係嚴重不協調（骨性問題），單純靠矯正器移動牙齒已經無法改善到理想的咬合跟臉型比例，這種情況需要正顎手術（orthognathic surgery）直接調整顎骨位置，並搭配矯正前後的牙齒排列治療，才能達到功能跟美觀兼顧的最終結果，這種骨性與牙性問題的鑑別診斷也是國考重點。"}, {"q": "骨齡評估（如手腕骨X光）在矯正治療計畫中最主要的應用目的是什麼？", "options": ["診斷齲齒風險", "評估病人剩餘的生長發育潛力，輔助決定治療介入時機", "評估牙周健康狀況", "判斷牙齒顏色"], "answer": 1, "explain": "許多矯正治療策略（特別是利用生長改良的功能性矯正裝置，或決定是否等待生長完成才進行正顎手術）都需要準確評估病人目前處於生長發育的哪個階段、還剩多少生長潛力，骨齡評估（手腕骨或頸椎骨的成熟度分期）提供了比實際年齡更準確的生長潛力指標，是矯正治療時機決策的重要輔助工具。"}]}, {"icon": "🧸", "zh": "兒童牙醫學", "desc": "乳牙特性、小孩怎麼安撫、牙齒外傷怎麼處理——這科是「面對小屁孩的生存指南」。", "topics": [{"z": "乳牙萌發時程", "e": "乳牙從約6個月開始萌發，2.5到3歲左右20顆乳牙萌發完成，順序跟時間有標準範圍"}, {"z": "兒童牙科行為引導", "e": "告知-演示-操作（tell-show-do）、正向增強等技巧能幫助小孩配合治療"}, {"z": "乳牙外傷處理原則", "e": "乳牙外傷處置原則跟恆牙不同，要考慮對底下恆牙牙胚發育的影響"}, {"z": "早期矯正介入時機", "e": "特定咬合問題（如後牙錯咬、嚴重前牙開咬）建議在混合齒列期就先介入處理"}, {"z": "兒童齲齒風險評估", "e": "奶瓶性齲齒、家庭飲食習慣、口腔衛生習慣綜合評估兒童的齲齒風險程度"}, {"z": "乳牙牙髓治療差異", "e": "乳牙牙髓切除術（pulpotomy）使用的藥劂跟恆牙不同，因為乳牙根尖會生理性吸收"}, {"z": "兒童鎮靜與全身麻醉", "e": "高度不合作或大範圍治療需求的兒童病人，鎮靜或全身麻醉下治療的適應症評估"}, {"z": "乳牙與恆牙交替時程", "e": "乳牙脫落跟恆牙萌發的時間順序，提早脫落或滯留都可能影響恆牙正常萌發"}, {"z": "兒童口腔衛生教育", "e": "依年齡調整刷牙方式跟含氟牙膏使用劇量，家長協助刷牙的重要性"}, {"z": "特殊需求兒童牙科照護", "e": "自閉症、腦麻或其他發展障礙兒童的牙科照護需要調整溝通方式跟治療策略"}, {"z": "窩溝封填劇應用", "e": "恆牙第一大臼齒萌發後及早做窩溝封填，能有效預防窩溝型齲齒"}, {"z": "乳牙提早缺失處理", "e": "乳牙因蛀牙或外傷提早脫落，使用維持器保留空間避免恆牙萌發空間不足"}, {"z": "兒童牙科影像學原則", "e": "兒童拍攝X光要考慮輻射劇量跟配合度，數位影像系統的應用越來越普及"}, {"z": "口腔習慣與咬合發育", "e": "吃手指、吐舌頭、口呼吸等不良習慣對齒列跟顎骨發育的長期影響"}, {"z": "兒童牙科急診處理", "e": "乳牙外傷的急診處理流程，跟家長溝通預後跟後續追蹤計畫的重要性"}], "quiz": [{"q": "乳牙牙髓切除術使用的藥劑為什麼跟恆牙不同？", "options": ["乳牙比較小，藥劇量不同而已", "乳牙根尖會發生生理性吸收，藥劇選擇要避免干擾正常吸收過程", "乳牙沒有牙髓", "乳牙完全不需要做牙髓治療"], "answer": 1, "explain": "乳牙最終會因為底下恆牙萌發而發生牙根生理性吸收，最後自然脫落，因此乳牙牙髓切除術使用的藥劑（如福馬林、硫酸鐵）跟恆牙根管治療材料不同，需要選擇不會干擾這個正常生理吸收過程、同時又能讓乳牙安全使用到自然脫落的藥劑，這跟恆牙根管治療希望牙齒終身保留的目標完全不同。"}, {"q": "乳牙因外傷提早脫落或拔除後，臨床上常使用什麼裝置處理？", "options": ["立即裝戴活動假牙", "維持器保留空間，避免影響恆牙正常萌發空間", "完全不需要任何處理", "立即進行矯正治療"], "answer": 1, "explain": "乳牙提早缺失（尤其是乳臼齒）可能讓鄰近牙齒往缺隙方向移動，導致底下恆牙萌發空間不足，臨床上會使用空間維持器（space maintainer）來保留缺牙空間，等到對應恆牙準備萌發時再移除維持器，這是預防性矯正概念在兒童牙科的重要應用。"}, {"q": "窩溝封填劇最理想的應用時機是什麼？", "options": ["乳牙萌發後立即進行", "恆牙第一大臼齒萌發後盡早進行，趁咬合面尚未發生齲齒前", "只在發現齲齒後才使用", "成年後才需要考慮"], "answer": 1, "explain": "窩溝封填劇的原理是用流動性樹脂材料填補咬合面深窄的溝隙，阻斷食物菜渣跟細菌堆積的空間，預防窩溝型齲齒；最理想的應用時機是恆牙（特別是第一大臼齒，約6歲萌發）剛萌發完成、咬合面溝隙還沒被齲齒侵犯之前就盡早進行，效果最好，是兒童預防性牙科的重要措施。"}, {"q": "特殊需求兒童（如自閉症）的牙科照護，臨床上最重要的調整原則是什麼？", "options": ["完全用全身麻醉處理所有治療", "調整溝通方式跟治療環境，盡量採用個別化的行為引導策略", "拒絕治療這類病人", "使用比一般兒童更強的約束方式"], "answer": 1, "explain": "特殊需求兒童因為溝通能力、感覺處理或認知功能的差異，傳統的行為引導技巧可能效果有限，臨床上需要個別化評估病人的特性，調整溝通方式（如使用圖片、簡化指令）、治療環境（減少聲光刺激）跟治療策略（分次完成、家長陪同），盡量在病人能配合的範圍內完成治療，全身麻醉是在其他方式都無法達成必要治療時的選項，不是首選或唯一選擇。"}, {"q": "口呼吸習慣對兒童齒列跟顎骨發育可能造成什麼長期影響？", "options": ["完全不會有任何影響", "可能造成上顎狹窄、開咬等咬合發育異常", "只會影響呼吸功能，跟齒列無關", "會讓牙齒長得特別整齊"], "answer": 1, "explain": "長期口呼吸習慣會改變舌頭跟口腔周圍肌肉的功能性姿勢，舌頭沒有正常頂在上顎，加上嘴唇肌肉張力改變，長期下來可能導致上顎牙弓變得狹窄、高拱，甚至合併前牙開咬或其他咬合發育異常，這也是為什麼兒童牙科跟矯正科會特別關注口呼吸、吃手指等不良口腔習慣的早期發現跟矯正。"}, {"q": "乳牙萌發時程出現明顯異常延遲，臨床上應該考慮的鑑別評估方向不包括哪一項？", "options": ["全身性疾病或內分泌異常", "局部因素如多生牙、囊腫阻擋", "純粹個人正常變異", "牙齒顏色偏黃"], "answer": 3, "explain": "牙齒顏色偏黃通常跟牙齒本身的結構、外來色素沉積或全身性疾病（如四環黴素染色）有關，跟萌發時程延遲是不同的臨床問題；萌發時程延遲需要評估的方向包括全身性因素（甲狀腺功能低下、唐氏症等）、局部因素（多生牙、牙瘤、囊腫阻擋萌發路徑）以及單純的個人正常生長變異，這幾個方向才是萌發異常的合理鑑別診斷思路。"}]}, {"icon": "🔪", "zh": "口腔外科學", "desc": "拔牙會出什麼狀況、植牙手術怎麼開、顎骨斷掉怎麼處理——這科是「動刀子的硬功夫」。", "topics": [{"z": "智齒怎麼拔", "e": "阻生智齒的角度、深度、跟下顎神經管的關係，決定拔牙難度跟併發症風險"}, {"z": "植牙手術步驟", "e": "從術前評估、翻瓣、鑽孔、植入到縫合，每一步都影響骨整合的成功率"}, {"z": "顎骨骨折怎麼分類", "e": "依骨折位置（顴骨、上顎、下顎）分類，臨床表現跟固定方式都不一樣"}, {"z": "術後併發症怎麼處理", "e": "乾性齒槽窩、感染、神經損傷是拔牙術後常見併發症，處置原則要熟悉"}, {"z": "顎骨囊腫怎麼摘除", "e": "摘除術跟造袋術的選擇要看囊腫大小、跟重要結構的關係"}, {"z": "局部麻醉手術應用", "e": "口腔外科手術常需要結合區域阻斷麻醉，確保手術範圍完全無痛"}, {"z": "拔牙併發症評估", "e": "術前要評估抗凝血藥物使用、骨質疏鬆藥物使用、放射線治療史等風險因子"}, {"z": "上顎竇相關手術", "e": "上顎竇墊高術是後牙區骨量不足時植牙前常用的骨增量手術技術"}, {"z": "顳顎關節外科處理", "e": "保守治療無效的顳顎關節疾病，可能需要關節鏡或開放性手術介入"}, {"z": "口腔顏面部感染處理", "e": "蜂窩性組織炎的擴散路徑跟急診處理原則，嚴重時需要住院引流跟抗生素治療"}, {"z": "術前抗生素與用藥評估", "e": "高風險病人（心內膜炎風險、特定關節置換）拔牙前要評估預防性抗生素使用"}, {"z": "骨增量手術技術", "e": "自體骨、異體骨、合成骨材的選擇要考慮缺損大小、病人意願跟癒合時間"}, {"z": "顏面神經損傷處理", "e": "手術過程中神經損傷的風險區域跟預防方式，發生後的追蹤評估原則"}, {"z": "困難拔牙評估", "e": "術前X光跟臨床評估能預測拔牙難度，協助規劃適當的手術方式跟時間"}, {"z": "口腔外科病人全身評估", "e": "心血管疾病、糖尿病、出血性疾病病人接受口腔外科手術前的風險評估"}], "quiz": [{"q": "阻生智齒拔除前的X光評估，最重要的是要看清楚牙根跟哪個解剖結構的相對關係？", "options": ["上顎竇", "下顎神經管", "顳顎關節", "頦孔"], "answer": 1, "explain": "下顎智齒的牙根如果跟下顎神經管位置太靠近甚至重疊，拔牙過程中傷到神經管內的下牙槽神經，可能造成下唇跟下顎區域的感覺異常或麻木，這是阻生智齒拔除前術前影像評估最重要的考量之一，嚴重的情況甚至需要考慮CBCT進一步立體定位評估風險。"}, {"q": "乾性齒槽窩（dry socket）最典型的臨床表現是什麼？", "options": ["拔牙後立即劇痛", "拔牙後2-4天劇烈疼痛，齒槽窩血塊脫落或缺失", "拔牙傷口完全沒有任何不適", "只在X光上才能診斷"], "answer": 1, "explain": "乾性齒槽窩通常發生在拔牙後2到4天，病人原本逐漸緩解的疼痛突然加劇，臨床檢查可見齒槽窩內血塊脫落或根本沒有形成正常血塊，骨壁暴露並可能伴隨惡臭，好發在下顎智齒拔除後，吸菸、口服避孕藥跟術中創傷過大都是危險因子，治療上以局部沖洗跟敷藥緩解疼痛為主。"}, {"q": "上顎竇墊高術（sinus lift）主要的臨床應用目的是什麼？", "options": ["治療上顎竇炎", "增加後牙區的垂直骨高度，讓植牙手術能順利進行", "矯正上顎骨位置", "治療顳顎關節疾病"], "answer": 1, "explain": "上顎後牙區因為上顎竇位置跟齒槽骨吸收的關係，常常骨量（尤其垂直高度）不足以直接進行植牙，上顎竇墊高術透過抬高竇底黏膜並填入骨粉材料，增加可用的垂直骨高度，是後牙區植牙前常用的骨增量手術技術，分為側壁開窗式跟齒槽脊頂式兩種主要手術入路。"}, {"q": "口腔顏面部蜂窩性組織炎如果持續惡化沒有妥善處理，最危險的擴散途徑之一是什麼？", "options": ["往皮膚表面擴散", "沿著筋膜間隙往咽喉部擴散，可能壓迫呼吸道", "只會侵犯牙齦組織", "完全不會擴散"], "answer": 1, "explain": "特別是下顎後牙（智齒）來源的嚴重感染，如果未及時控制，細菌可能沿著頭頸部的筋膜間隙擴散，特別是往咽旁間隙或下顎下間隙擴散，嚴重時可能壓迫咽喉部造成呼吸道阻塞（這種情況稱為Ludwig氏咽峽炎），是口腔顏面部感染中最危急、需要立即住院處理甚至緊急氣道處置的併發症。"}, {"q": "高風險心內膜炎病人（如人工心臟瓣膜）接受拔牙治療前，臨床上通常會考慮什麼處置？", "options": ["完全不需要任何特別處置", "預防性使用抗生素，降低菌血症引發感染性心內膜炎的風險", "必須住院治療", "拒絕進行任何牙科治療"], "answer": 1, "explain": "拔牙等出血性牙科處置會造成短暫菌血症，對於特定高風險病人（人工心臟瓣膜、先天性心臟病未矯正或矯正後早期、感染性心內膜炎病史等），現行準則建議在治療前預防性給予抗生素（常用Amoxicillin），目的是降低細菌經血流到達已受損或人工心臟結構引發感染性心內膜炎的風險，但這個適應症範圍近年有逐漸限縮的趨勢，需要依照最新準則跟內科醫師討論。"}, {"q": "骨增量手術中使用「自體骨」相對於異體骨或合成骨材，最主要的優勢是什麼？", "options": ["完全沒有任何缺點", "具有良好的骨誘導性跟骨生成性，且無排斥反應風險", "取得來源完全沒有限制", "癒合時間最短"], "answer": 1, "explain": "自體骨（從病人自己身體其他部位取得，如口內下顎枝、口外髂骨）同時具有骨誘導性（含有生長因子能誘導骨細胞分化）跟骨生成性（含有活的骨細胞能直接參與新骨形成），且沒有免疫排斥或疾病傳播的風險，被視為骨增量材料的黃金標準，但缺點是需要額外的取骨手術，增加病人的手術負擔跟恢復時間，這也是為什麼異體骨或合成骨材在臨床上也廣泛被使用作為替代選擇。"}]}, {"icon": "🔍", "zh": "口腔病理學", "desc": "口腔癌怎麼診斷、囊腫怎麼分類、切片要怎麼送——這科是「辨認壞東西」的能力。", "topics": [{"z": "口腔癌前病變怎麼認", "e": "白斑症、紅斑症外觀不明原因的白色或紅色斑塊，部分具惡性轉化風險要切片確認"}, {"z": "頷骨囊腫怎麼分類", "e": "齒源性（根尖囊腫、含牙囊腫、角化囊腫）跟非齒源性囊腫的鑑別跟好發位置"}, {"z": "唾液腺腫瘤", "e": "良性多型性腺瘤、惡性黏液表皮癌的好發部位、生長速度、預後都不同"}, {"z": "怎麼做切片", "e": "切除式切片、切取式切片的選擇要看病灶大小跟性質，懷疑惡性要選對方式"}, {"z": "癌症分期怎麼分", "e": "TNM分期系統依腫瘤大小（T）、淋巴轉移（N）、遠端轉移（M）綜合評估嚴重度"}, {"z": "口腔黏膜白色病變鑑別", "e": "白斑症、念珠菌斑、扁平苔癬的白色病灶外觀類似但病因跟處置完全不同"}, {"z": "骨纤維病變診斷", "e": "骨化纤維瘤、纤維性骨失養症在X光上的特徵跟組織學表現需要綜合判斷"}, {"z": "色素病變鑑別", "e": "黑色素细胞痣、種族性色素沉積、重金屬沉積的色素分佈位置不同要會分辨"}, {"z": "口腔潰瘍性病變鑑別", "e": "復發性口腔潰瘍、創傷性潰瘍、惡性潰瘍的外觀跟癒合時間是鑑別重點"}, {"z": "骨壞死病理診斷", "e": "放射線性骨壞死、藥物相關性顎骨壞死的共同病理基礎是血管供應受損"}, {"z": "良性腫瘤分類", "e": "纤維瘤、乳頭狀瘤等口腔常見良性腫瘤的好發部位跟臨床特徵"}, {"z": "癌前病變追蹤策略", "e": "確診癌前病變後的定期追蹤頻率、切片時機跟病人衛教都是臨床管理重點"}, {"z": "病理切片送驗流程", "e": "標本固定、送驗單填寫、病理報告判讀，完整流程的每個環節都影響診斷準確性"}, {"z": "口腔黏膜活體染色技術", "e": "甲苯胺藍染色、自發螢光檢測能輔助篩檢癌前病變，提高早期診斷率"}, {"z": "頭頸部腫瘤多科照護", "e": "口腔癌治療常需要外科、放射腫瘤科、腫瘤內科多科協作，牙科在其中也有重要角色"}], "quiz": [{"q": "口腔白斑症（leukoplakia）的臨床定義主要是基於什麼判斷？", "options": ["特定的組織病理學特徵", "臨床外觀排除其他已知病因後的白色斑塊診斷", "一定會轉變成癌症", "只發生在吸菸者身上"], "answer": 1, "explain": "白斑症在臨床上的定義是「排除其他已知病因（如念珠菌感染、扁平苔癬、創傷摩擦）後，無法用其他診斷解釋的白色斑塊」，它本身是一個臨床描述性診斷，而不是組織病理學診斷，確診需要切片才能知道底下的組織學變化是單純增生、不同程度的異生，還是已經轉變成癌症，這也是為什麼所有白斑症都建議要做切片評估。"}, {"q": "TNM分期系統中，「N」代表的評估項目是什麼？", "options": ["腫瘤的原發大小", "淋巴結轉移狀況", "遠端器官轉移", "腫瘤分化程度"], "answer": 1, "explain": "TNM分期系統是國際通用的癌症分期標準：T（Tumor）代表原發腫瘤的大小跟侵犯深度，N（Node）代表區域淋巴結是否有轉移以及轉移的程度跟數量，M（Metastasis）代表是否已經有遠端器官轉移，三個項目綜合評估後能得出整體的癌症分期（I到IV期），分期結果直接影響治療策略跟預後判斷。"}, {"q": "懷疑惡性的口腔黏膜病灶，切片方式通常會選擇哪一種？", "options": ["一定要做切除式切片", "切取式切片，取病灶代表性部分送驗確認診斷後再決定完整治療計畫", "完全不需要切片直接治療", "只用細胞學抹片即可確診"], "answer": 1, "explain": "懷疑惡性的病灶通常建議先做切取式切片（incisional biopsy），只取病灶有代表性的一小部分組織送病理確診，這樣可以在確定診斷後，依照確診結果（良性、癌前病變或惡性腫瘤分期）規劃完整且適當範圍的治療手術，避免在診斷未明的情況下，因為切除範圍不足或過大造成治療上的困擾；切除式切片通常保留給病灶較小、惡性風險較低的情況。"}, {"q": "放射線性骨壞死跟藥物相關性顎骨壞死（MRONJ），兩者共同的病理基礎是什麼？", "options": ["細菌大量增生破壞骨組織", "局部血管供應嚴重受損，導致骨組織因缺血缺氧而壞死", "神經損傷導致骨頭壞死", "唾液腺功能喪失"], "answer": 1, "explain": "放射線治療會直接損傷骨組織內的血管系統，造成局部血液循環嚴重受損；雙磷酸鹽類或抗血管新生藥物則是抑制破骨細胞活性同時影響血管新生能力，兩者雖然致病機轉的起點不同，但最終都導致顎骨局部血液供應嚴重不足，骨組織因為缺血缺氧而壞死，這個共同的病理基礎也解釋了為什麼這兩類病人在拔牙等外傷性處置後傷口都特別不容易癒合。"}, {"q": "甲苯胺藍染色在口腔黏膜病灶篩檢中的主要應用原理是什麼？", "options": ["能直接治療癌前病變", "染料容易被代謝活躍、核酸含量較高的異常細胞吸收著色，輔助標示可疑區域", "只能用來染色健康組織", "能完全取代切片診斷"], "answer": 1, "explain": "甲苯胺藍是一種核酸親和性染料，異常增生或惡性轉化的細胞通常代謝較活躍、核酸（DNA/RNA）含量較高，染色後這些區域會比正常黏膜著色更深，臨床上可以用來輔助標示出可疑需要進一步切片確診的區域，但染色結果不能完全取代病理切片診斷，偽陽性（發炎或創傷區域也可能染色）跟偽陰性都可能發生，是輔助篩檢工具而非確診工具。"}, {"q": "良性骨化纤維瘤在X光上的影像特徵，跟惡性骨腫瘤相比通常有什麼差異？", "options": ["完全無法用影像區分良惡性", "通常邊界較清楚，可能有囊腫狀外觀，惡性腫瘤邊界常模糊不規則並有骨皮質破壞", "良性腫瘤通常生長速度比惡性腫瘤更快", "良性骨腫瘤一定不會有任何症狀"], "answer": 1, "explain": "雖然最終診斷仍需要組織病理學確認，但影像特徵能提供重要的鑑別線索：良性骨病變（如骨化纤維瘤）通常生長緩慢，邊界相對清楚，可能呈現囊腫狀或邊緣硬化的外觀；惡性骨腫瘤則通常生長快速，邊界模糊不規則，常合併骨皮質破壞、軟組織侵犯或病理性骨折，這些影像特徵的綜合判斷是口腔病理診斷流程中重要的一環，需要跟臨床表現、病理切片結果一起整合判斷。"}]}, {"icon": "📋", "zh": "口腔診斷學", "desc": "病史怎麼問、檢查怎麼做、影像怎麼整合——這科是「把所有資訊拼成一個答案」的功夫。", "topics": [{"z": "主訴怎麼問", "e": "用OPQRST系統化詢問疼痛的發生、誘發、性質、放射、嚴重度、時間，建立完整病史"}, {"z": "牙周探測怎麼記錄", "e": "探測深度、出血指數、附著喪失要系統性記錄六個點，建立完整牙周圖表"}, {"z": "咬合怎麼檢查", "e": "靜態咬合關係跟動態咬合接觸點都要檢查，找出可能的咬合創傷區域"}, {"z": "顳顎關節怎麼檢查", "e": "張口度測量、關節雜音聽診、肌肉觸診是顳顎關節基本理學檢查項目"}, {"z": "整套診斷流程怎麼跑", "e": "從主訴問診到理學檢查再到影像確認，最後形成診斷跟治療計畫的完整邏輯鏈"}, {"z": "病史詢問完整性", "e": "全身病史、用藥史、過敏史、家族史都要完整收集，影響治療計畫安全性"}, {"z": "臨床檢查工具使用", "e": "探針、鏡子、牙周探測器、咬合紙各有適合的檢查情境跟操作技巧"}, {"z": "牙髓活性測試應用", "e": "冷測試、電測試的操作技巧跟結果判讀，是牙髓病灶診斷的重要工具"}, {"z": "X光診斷整合", "e": "根尖片、咬翼片、全口X光、CBCT的選擇要配合臨床懷疑的問題類型"}, {"z": "鑑別診斷邏輯", "e": "列出可能診斷後依檢查結果逐一排除，是臨床診斷思維訓練的核心"}, {"z": "轉診時機判斷", "e": "超出一般牙科處理範圍的複雜病例（如疑似惡性腫瘤），要懂得適時轉診"}, {"z": "特殊檢查應用", "e": "切片、細菌培養、血液檢查等特殊檢查在特定臨床情境下的應用時機"}, {"z": "病歷記錄完整性", "e": "完整準確的病歷記錄不只是法律要求，也是後續治療追蹤跟轉診溝通的基礎"}, {"z": "風險評估與知情同意", "e": "治療前充分告知風險、替代方案，取得病人知情同意是診斷流程的重要環節"}, {"z": "疼痛來源鑑別", "e": "牙髓性、牙周性、顳顎關節性、神經性疼痛的鑑別是臨床診斷最常見的挑戰之一"}], "quiz": [{"q": "OPQRST是用來系統性詢問什麼臨床資訊的工具？", "options": ["病人的全身病史", "疼痛的特性（發生、誘發、性質、放射、嚴重度、時間）", "牙周探測深度", "咬合接觸點"], "answer": 1, "explain": "OPQRST是疼痛問診的系統性架構：O(Onset發生方式)、P(Provocation/Palliation誘發跟緩解因子)、Q(Quality性質，如尖銳或鈍痛)、R(Radiation放射部位)、S(Severity嚴重度)、T(Time-course時間進程)，透過這個架構能完整且不遺漏地收集疼痛相關資訊，是建立正確鑑別診斷的重要第一步。"}, {"q": "牙周探測記錄通常每顆牙要記錄幾個位點的探測深度？", "options": ["2個位點", "4個位點", "6個位點", "8個位點"], "answer": 2, "explain": "標準的牙周探測記錄每顆牙要記錄6個位點（頰側近心、頰側中央、頰側遠心、舌側近心、舌側中央、舌側遠心），這樣才能完整呈現牙齒周圍各個角度的牙周健康狀況，因為牙周炎的破壞程度在同一顆牙的不同位點可能差異很大，只記錄部分位點可能會漏掉重要的病灶資訊。"}, {"q": "懷疑牙髓性疼痛跟牙周性疼痛的鑑別，臨床上最關鍵的差異點通常是什麼？", "options": ["兩者完全無法區分", "牙髓性疼痛通常較難定位、可能放射到其他牙齒或臉部，牙周性疼痛通常能精準定位在患牙", "牙周性疼痛一定比牙髓性疼痛更劇烈", "只能靠X光區分，理學檢查完全沒有幫助"], "answer": 1, "explain": "牙髓性疼痛的訊號是透過比較原始、定位能力較差的神經傳導路徑，病人常常無法準確指出哪顆牙在痛，甚至可能放射到對側或其他區域；牙周性疼痛則因為牙周韌帶有豐富的本體感覺接受器，定位能力強，病人通常能精準指出哪顆牙不舒服，加上牙周探測、咬合測試、X光骨頭狀況等理學檢查綜合判斷，能有效幫助鑑別兩者。"}, {"q": "臨床上發現口腔黏膜病灶且高度懷疑惡性腫瘤，正確的處置原則應該是什麼？", "options": ["先嘗試藥物治療觀察反應", "適時轉診到口腔顎面外科或相關專科進行切片確診", "告知病人不用太擔心，先觀察就好", "直接安排手術完全切除"], "answer": 1, "explain": "當臨床評估高度懷疑惡性腫瘤的可能性時，正確的處置是適時轉診到具備切片診斷跟後續癌症治療能力的專科（如口腔顎面外科、耳鼻喉科），由專科醫師進行適當的切片確診跟後續完整治療規劃，延誤轉診或先嘗試其他治療觀察反應，可能會延誤癌症的早期診斷跟治療時機，這是口腔診斷學中非常重要的臨床判斷原則。"}, {"q": "知情同意（informed consent）在臨床診斷治療流程中的核心意義是什麼？", "options": ["只是法律上要簽的文件", "充分告知病人治療風險、替代方案、預期效果，讓病人能自主做出治療決定", "只在外科手術才需要", "跟診斷流程沒有直接關係"], "answer": 1, "explain": "知情同意的核心精神不只是簽署文件這個形式，而是醫療人員有義務充分告知病人關於診斷結果、建議治療方式的風險跟效益、可能的替代治療方案（包括不治療的後果），讓病人在充分理解的情況下，能自主參與並做出符合自己價值觀的治療決定，這是現代醫療倫理跟病人自主權的重要體現，也是完整診斷治療流程不可或缺的一環。"}, {"q": "全口X光（Panoramic）跟根尖片相比，在診斷上主要的限制是什麼？", "options": ["全口X光完全沒有任何限制", "全口X光影像放大率跟清晰度不如根尖片，細節判讀（如早期齲齒）較不精確", "根尖片才能看到全部牙齒", "全口X光輻射劇量比根尖片高很多"], "answer": 1, "explain": "全口X光的優勢是能一次看到全口牙齒跟顎骨的整體狀況，方便篩檢跟整體評估，但因為是斷層攝影技術跟單次曝光涵蓋範圍大，影像的解析度跟細節清晰度比起根尖片較低，特別是對於早期齲齒、根尖周圍細微病變或牙周韌帶腔寬度等需要精細判讀的項目，根尖片仍是更準確的選擇，兩種影像工具在臨床上是互補而非取代的關係。"}]}, {"icon": "🏘️", "zh": "社區牙醫學", "desc": "公衛政策、流行病學、預防保健計畫——這科是「牙醫的社會責任」考點。", "topics": [{"z": "氟化防齲政策", "e": "自來水加氟、學校含氟漱口水計畫是社區層級防齲最具成本效益的公共衛生措施"}, {"z": "口腔癌篩檢怎麼做", "e": "針對高風險族群（吸菸嚼檳榔者）的口腔癌篩檢計畫，目標是早期發現提高存活率"}, {"z": "學童牙科保健", "e": "學校巡迴牙醫、含氟漱口水計畫、口腔衛生教育是學童齲齒預防的重要環節"}, {"z": "流行病學怎麼調查", "e": "齲齒指數（DMFT）、牙周病流行率的調查方法是評估社區口腔健康狀況的工具"}, {"z": "健保牙科怎麼給付", "e": "台灣健保牙科給付範圍、論量計酬制度跟牙科總額制度的基本概念跟限制"}, {"z": "社區口腔健康促進", "e": "針對弱勢族群、偏鄉地區的口腔健康資源分配跟可近性議題"}, {"z": "老年人口腔照護政策", "e": "高齡化社會下，居家牙科照護、長照機構口腔保健的政策跟服務模式"}, {"z": "孕婦口腔保健計畫", "e": "懷孕期牙周病跟早產的關聯，孕婦牙科檢查補助計畫的公衛意義"}, {"z": "特殊需求族群口腔照護", "e": "身心障礙者、低收入戶等特殊族群口腔健康不平等的議題跟改善策略"}, {"z": "齲齒指數計算與應用", "e": "DMFT（恆牙）、dmft（乳牙）指數的計算方式，跨地區跨年度比較口腔健康趨勢"}, {"z": "牙科人力資源規劃", "e": "牙醫師人力分布、城鄉差距，公共衛生政策如何規劃牙科人力配置"}, {"z": "口腔健康與全身健康關聯政策", "e": "牙周病跟糖尿病、心血管疾病的關聯，逐漸被納入慢性病整合照護的政策考量"}, {"z": "菸檳防制政策", "e": "檳榔嚼食、吸菸防制政策對降低口腔癌發生率的長期公衛效益"}, {"z": "口腔健康教育推廣", "e": "從學校到社區的各層級口腔衛生教育推廣策略跟成效評估方法"}, {"z": "國際口腔健康政策比較", "e": "了解不同國家的牙科保健政策跟給付模式，作為台灣政策參考的國考考點"}], "quiz": [{"q": "DMFT指數主要用來評估什麼？", "options": ["牙周病嚴重程度", "恆牙的齲齒、缺失、填補狀況，反映齲齒流行率", "顳顎關節健康狀況", "口腔癌發生率"], "answer": 1, "explain": "DMFT是Decayed（齲齒）、Missing（缺失）、Filled（已填補）、Teeth（恆牙）的縮寫，是世界衛生組織建議用來評估族群恆牙齲齒經驗最標準化的流行病學指標，乳牙版本則用小寫dmft表示，這個指數能用來比較不同地區、不同年齡層或不同年度之間的齲齒流行病學趨勢，是公共衛生決策的重要參考數據。"}, {"q": "自來水加氟被認為是防齲措施中具有什麼特性的公共衛生政策？", "options": ["成本最高但效果最差", "成本效益極高，能讓整個社區族群普遍受益而不需要個人主動配合", "只對兒童有效，對成人完全無效", "會增加齲齒風險"], "answer": 1, "explain": "自來水加氟（水氟化）是公共衛生史上少數能用相對極低的成本，讓整個社區所有年齡層族群（不需要個人主動配合行為改變）都能持續獲得防齲效益的措施，世界衛生組織跟多國公共衛生機構都將其列為最具成本效益的口腔疾病預防策略之一，但實施與否也涉及公共政策、民意溝通等社會層面的考量。"}, {"q": "懷孕期牙周病被認為跟哪種產科併發症存在關聯性，因此孕婦牙科保健政策日益受到重視？", "options": ["妊娠糖尿病", "早產跟低體重兒", "胎位不正", "羊水過多"], "answer": 1, "explain": "多項研究顯示孕婦如果患有中重度牙周病，體內慢性發炎反應釋放的發炎介質可能透過血液循環影響子宮環境，跟早產及低體重兒的發生率上升有關聯性，雖然因果機轉仍在持續研究中，但這個發現促使許多國家將孕期牙科檢查跟牙周病治療納入孕婦保健政策的一部分，鼓勵孕婦在孕期定期接受牙科檢查跟必要治療。"}, {"q": "台灣牙醫人力分布不均的城鄉差距問題，屬於哪個公共衛生概念的範疇？", "options": ["口腔健康識能", "口腔健康不平等與資源可近性", "牙科臨床技術發展", "個人口腔衛生習慣"], "answer": 1, "explain": "牙醫人力過度集中在城市地區，偏鄉跟離島地區牙科資源相對缺乏，這種因地理位置造成的醫療資源分布不均，屬於「健康不平等」（health inequality）跟「可近性」（accessibility）的公共衛生議題範疇，政策上常透過偏鄉醫療獎勵計畫、巡迴醫療車或遠距醫療等方式嘗試改善這個結構性問題。"}, {"q": "檳榔嚼食防制政策被視為降低哪種口腔疾病長期發生率的重要公衛策略？", "options": ["齲齒", "牙周病", "口腔癌", "顳顎關節疾病"], "answer": 2, "explain": "檳榔嚼食（特別是合併菸酒使用時）已被證實是口腔癌（尤其是頰黏膜癌）最主要的危險因子之一，台灣口腔癌發生率跟檳榔嚼食率在特定族群跟地區呈現高度相關性，因此檳榔防制（包括教育宣導、立法限制、提供戒檳服務）是公共衛生政策中降低口腔癌長期發生率最關鍵的策略之一，也是口腔癌篩檢計畫鎖定高風險族群的重要依據。"}, {"q": "學校含氟漱口水計畫主要的公衛優勢是什麼？", "options": ["完全取代刷牙", "操作簡便、成本相對低廉，能在校園環境大規模實施且容易監督執行", "只對成人有效", "會增加學童的齲齒風險"], "answer": 1, "explain": "學校含氟漱口水計畫的優勢在於操作簡便（定期漱口幾分鐘即可）、單次成本相對低廉、能透過學校系統性地大規模實施並容易監督執行率，特別適合在缺乏水氟化政策或飲水氟濃度不足的地區，作為輔助性的社區防齲策略，搭配口腔衛生教育跟定期牙科檢查，共同降低學童齲齒的發生率。"}]}];
+const subjGrid=document.getElementById('subjGrid');
+const subjDetail=document.getElementById('subjDetail');
+SUBJECTS.forEach((s,i)=>{
+  const c=document.createElement('div');
+  c.className='subj-card';
+  c.innerHTML=`<div class="subj-icon">${s.icon}</div><div class="subj-zh">${s.zh}</div>`;
+  c.onclick=()=>{
+    document.querySelectorAll('.subj-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel');
+    subjDetail.className='subj-detail show';
+    const topicRows=s.topics.map((t,ti)=>`<div class="topic-row"><div class="topic-num">${ti+1}</div><div><div class="topic-z">${t.z}</div><div class="topic-e">${t.e}</div></div></div>`).join('');
+    const quizItems=s.quiz.map((q,qi)=>{
+      const opts=q.options.map((op,oi)=>`<div class="quiz-opt" data-qi="${qi}" data-oi="${oi}" onclick="answerQuiz(this,${i},${qi},${oi},${q.answer})">${String.fromCharCode(65+oi)}. ${op}</div>`).join('');
+      return `<div class="quiz-item">
+        <div class="quiz-q">第${qi+1}題　${q.q}</div>
+        <div class="quiz-opts">${opts}</div>
+        <div class="quiz-explain" id="exp_${i}_${qi}"><strong>解析：</strong>${q.explain}</div>
+      </div>`;
+    }).join('');
+    subjDetail.innerHTML=`<h3>${s.icon} ${s.zh}</h3><p>${s.desc}</p>
+      <div class="topic-list">${topicRows}</div>
+      <div class="quiz-block">
+        <div class="quiz-label">📝 歷屆考古題範例 · 點選答案立即看解析</div>
+        ${quizItems}
+      </div>`;
+    subjDetail.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  subjGrid.appendChild(c);
+});
+
+window.answerQuiz=function(el,si,qi,oi,correctIdx){
+  const container=el.parentElement;
+  const opts=container.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.style.pointerEvents='none');
+  opts.forEach((o,idx)=>{
+    if(idx===correctIdx) o.classList.add('correct');
+    else if(idx===oi && oi!==correctIdx) o.classList.add('wrong');
+  });
+  const exp=document.getElementById('exp_'+si+'_'+qi);
+  if(exp) exp.classList.add('show');
+};
+
+const DISEASES=[{"icon": "🦷", "zh": "齲齒", "stage": "從一開始的小白點，到最後爛進神經的完整過程", "mech": "嘴巴裡的壞菌（像變形鏈球菌）吃糖之後會排酸，這個酸會把牙齒的鈣質一點一點溶掉。如果產酸的速度比唾液能修復的速度快，洞就會越破越大，最後一路吃穿牙釉質、牙本質，直接咬到神經。", "stages": [{"z": "剛開始脫鈣（白點）", "e": "牙齒表面開始掉鈣，還沒破洞，這時候擦氟還救得回來"}, {"z": "牙釉質被吃穿", "e": "表層被咬出一個真正的洞，用探針就能摸到"}, {"z": "咬進牙本質", "e": "洞已經咬進牙本質，細菌跑進牙本質小管，開始會酸會痛"}, {"z": "咬到神經", "e": "快咬穿或已經咬穿牙髓腔，神經開始發炎，會自己痛起來"}], "exam_points": ["變形鏈球菌怎麼讓牙齒蛀掉", "氟化物怎麼幫忙補回鈣質", "窩洞怎麼分類（Black's分類）", "早期蛀牙怎麼抓出來（雷射螢光、咬翼片）", "什麼情況該補樹脂"]}, {"icon": "🔴", "zh": "牙髓炎", "stage": "神經還救得回來 vs 神經已經回不去了，怎麼分辨", "mech": "細菌的毒素或外來刺激讓神經發炎。問題是神經被一層硬硬的牙本質包住，沒有別的地方可以洩壓，腫起來的壓力一直累積，最後神經就壞死了。", "stages": [{"z": "可逆性牙髓炎", "e": "刺激一下會痛，但東西拿掉馬上就不痛了，神經還活著沒事"}, {"z": "不可逆牙髓炎（急性）", "e": "自己會痛，晚上更痛，遇冷熱會痛很久才停，這種就是回不去了"}, {"z": "不可逆牙髓炎（慢性）", "e": "症狀比較輕但其實神經已經壞了，還是要抽神經"}, {"z": "牙髓壞死", "e": "神經完全死掉，可能完全不痛，一路拖到根尖出問題才發現"}], "exam_points": ["怎麼測試牙髓炎（冷測試、電測試）", "可逆跟不可逆怎麼分", "什麼時候該轉診抽神經", "抽神經的條件跟禁忌", "急性牙髓炎怎麼先止痛"]}, {"icon": "⚪", "zh": "根尖病變", "stage": "急性化膿到慢性肉芽腫，怎麼一步步變化", "mech": "神經死掉之後，細菌跟它的毒素會從根管口跑到根尖周圍，引發身體的免疫反應。急性的時候會化膿，慢性的時候會長出肉芽腫或囊腫，這些在X光上看起來都不太一樣。", "stages": [{"z": "急性根尖膿瘍", "e": "超級痛、牙齒感覺浮起來、可能臉腫發燒"}, {"z": "慢性根尖肉芽腫", "e": "通常不痛，照X光才發現根尖有一片邊界模糊的黑影"}, {"z": "根尖囊腫", "e": "上皮細胞增生圍出一個囊腔，X光上是邊界清楚的圓形黑影"}, {"z": "硬化性骨炎", "e": "慢性輕微感染讓骨頭反而增生，X光看起來反而是白的"}], "exam_points": ["根尖病變X光怎麼判讀", "急性慢性怎麼分", "肉芽腫跟囊腫病理上怎麼分", "什麼時候該做根管治療或根尖手術", "治療後怎麼追蹤癒合"]}, {"icon": "🩸", "zh": "牙周病", "stage": "牙齦炎到重度牙周炎，2018新分類怎麼分", "mech": "牙菌斑這個生物膜會引發身體的免疫發炎反應，一開始只是牙齦在發炎（牙齦炎，這個可以救回來）。如果放著不管，發炎會一直破壞牙周韌帶跟骨頭，這部分壞掉就回不去了（牙周炎）。", "stages": [{"z": "牙齦炎", "e": "牙齦紅腫容易流血，但骨頭沒有壞，好好刷牙就能完全恢復"}, {"z": "輕度牙周炎", "e": "附著喪失1-2mm，骨頭輕微吸收，開始有牙周囊袋"}, {"z": "中度牙周炎", "e": "附著喪失3-4mm，牙齦開始萎縮，牙齒可能輕微鬆動"}, {"z": "重度牙周炎", "e": "附著喪失超過5mm，骨頭嚴重吸收，牙齒明顯搖甚至自己掉"}], "exam_points": ["2018牙周病新分類（Stage跟Grade）", "牙周探測深度跟附著喪失怎麼算", "牙周致病菌跟生物膜理論", "牙周翻瓣手術什麼時候做", "牙周再生療法怎麼選"]}, {"icon": "⚠️", "zh": "口腔癌", "stage": "癌前病變怎麼一路變成侵襲性癌症", "mech": "長期被刺激（菸酒檳榔）、病毒感染或慢性發炎，會讓細胞的基因一直突變累積，從良性增生慢慢變成癌前病變，最後突破基底膜變成真正的癌症。", "stages": [{"z": "白斑/紅斑", "e": "嘴巴黏膜出現白色或紅色斑塊，原因不明，有些有惡性風險"}, {"z": "上皮異生（輕中重度）", "e": "切片下去看細胞長得怪，但還沒突破基底膜，等級越高風險越大"}, {"z": "原位癌", "e": "異常細胞已經長滿整層上皮，但還被基底膜擋著"}, {"z": "侵襲性鱗狀細胞癌", "e": "癌細胞突破基底膜跑進結締組織，可能淋巴轉移或遠端轉移"}], "exam_points": ["菸酒檳榔為什麼會加成致癌", "癌前病變什麼時候要切片", "TNM怎麼分期", "口腔癌篩檢政策", "早期口腔癌有哪些警訊"]}, {"icon": "🦴", "zh": "顳顎關節疾病", "stage": "關節盤跑位到退化性關節炎的病程", "mech": "咬合不對、夜間磨牙、外傷或關節結構本來就怪，會讓關節盤跟髁突配合不好。一開始只是功能性的跑位，長期不處理就會磨損軟骨變成退化性關節炎。", "stages": [{"z": "關節盤可復性移位", "e": "張嘴會喀一聲（clicking），但關節盤自己會跳回去"}, {"z": "關節盤不可復性移位（急性）", "e": "嘴巴張不開（lock jaw），關節盤卡住跳不回去"}, {"z": "關節盤不可復性移位（慢性）", "e": "嘴巴慢慢能張開了，但關節盤已經永久變形"}, {"z": "退化性關節炎", "e": "軟骨持續磨損，X光或CBCT看得到骨頭變化，一直痛"}], "exam_points": ["顳顎關節疾病怎麼分類（Wilkes分期）", "關節盤移位臨床上怎麼判斷", "咬合板治療什麼時候用", "顳顎關節影像要選哪種", "保守治療跟開刀的時機"]}, {"icon": "🔵", "zh": "囊腫", "stage": "牙齒長出來的囊腫 vs 不是牙齒長出來的囊腫，怎麼分", "mech": "殘留的上皮組織（像Hertwig氏上皮根鞘殘留、牙板殘留）受到刺激後會增生，圍出一個囊腔，裡面的液體越積越多，骨頭就慢慢被撐開。", "stages": [{"z": "根尖囊腫", "e": "最常見的牙源性囊腫，從神經壞死之後根尖慢性發炎長出來的"}, {"z": "含牙囊腫", "e": "包著還沒長出來的牙冠，常常跟阻生智齒一起出現"}, {"z": "角化囊腫（OKC）", "e": "特別容易復發的一種，組織學上有特殊的角化上皮"}, {"z": "鼻顎管囊腫", "e": "不是牙齒長出來的，發生在上顎前牙區的鼻顎管殘留組織"}], "exam_points": ["牙源性跟非牙源性囊腫怎麼分", "囊腫的X光特徵怎麼認", "角化囊腫為什麼特別容易復發", "囊腫摘除手術原則", "囊腫跟良性腫瘤病理上怎麼區分"]}, {"icon": "⚙️", "zh": "植牙併發症", "stage": "早期失敗到植體周圍炎，完整的處理方式", "mech": "植牙併發症分早期（手術相關，像感染、神經受傷）跟晚期（咬合負重之後，像植體周圍炎）。植體周圍炎的機轉跟牙周炎很像，都是細菌生物膜引發骨頭慢慢被吃掉。", "stages": [{"z": "早期植入失敗", "e": "骨整合沒成功，常見原因是感染、咬太重或骨量不夠"}, {"z": "植體周圍黏膜炎", "e": "植體周圍軟組織發炎但骨頭還沒壞，類似牙齦炎，可以救"}, {"z": "植體周圍炎（初期）", "e": "骨頭開始被吃掉，探測深度變深，可能流血或化膿"}, {"z": "植體周圍炎（重度）", "e": "骨頭嚴重流失威脅到植體穩固，可能要拔掉植體"}], "exam_points": ["骨整合機轉跟失敗原因", "植體周圍炎跟牙周炎機轉怎麼比較", "植牙手術前要評估什麼（骨量、神經位置）", "植體周圍炎怎麼治療", "植牙長期怎麼維護"]}];
+const diseaseTabs=document.getElementById('diseaseTabs');
+const diseaseDetail=document.getElementById('diseaseDetail');
+DISEASES.forEach((d,i)=>{
+  const b=document.createElement('button');
+  b.className='dt';
+  b.innerHTML=`${d.icon} ${d.zh}`;
+  b.onclick=()=>{
+    document.querySelectorAll('.dt').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+    diseaseDetail.className='disease-detail show';
+    const stages=d.stages.map((st,si)=>`<div class="stage-item"><div class="stage-num">${si+1}</div><div><div class="stage-z">${st.z}</div><div class="stage-e">${st.e}</div></div></div>`).join('');
+    const points=d.exam_points.map(p=>`<span class="exam-point">${p}</span>`).join('');
+    diseaseDetail.innerHTML=`
+      <div class="dd-card">
+        <div class="dd-label">怎麼發生的</div>
+        <div class="dd-title">${d.icon} ${d.zh}</div>
+        <div class="dd-stage">${d.stage}</div>
+        <div class="dd-mech">${d.mech}</div>
+      </div>
+      <div class="dd-card">
+        <div class="dd-label">病程怎麼一步步變化</div>
+        <div class="stage-flow">${stages}</div>
+      </div>
+      <div class="dd-card">
+        <div class="dd-label">考試愛考這些</div>
+        <div class="exam-points">${points}</div>
+      </div>`;
+    diseaseDetail.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  diseaseTabs.appendChild(b);
+});
+
+const IMAGING=[{"icon": "🔲", "zh": "根尖片", "use": "看單一顆牙跟它周圍的細節，這是最常用的基本款", "points": ["牙根長怎樣、有沒有彎", "根尖有沒有黑影病變", "牙周韌帶腔寬不寬", "蛀牙咬到離神經多近", "抽神經前後拿來對照"]}, {"icon": "🦷", "zh": "咬翼片", "use": "專門看牙縫蛀牙跟牙周骨頭的水平高度", "points": ["牙縫蛀牙能不能早期抓到（分牙釉質/牙本質深度）", "骨頭水平跟牙周炎嚴重度的關係", "上下排後牙咬合對不對", "補牙邊緣密合不密合", "樹脂底下有沒有二次蛀牙"]}, {"icon": "🌐", "zh": "全口X光", "use": "一張看全部，整口牙跟顎骨的大概況", "points": ["全口牙齒數量跟位置一目了然", "篩智齒、多生齒", "顎骨囊腫腫瘤初步篩檢", "上顎竇跟下顎神經管位置在哪", "矯正前後牙根狀況對照"]}, {"icon": "🧊", "zh": "CBCT", "use": "立體3D，要精確定位就靠這個", "points": ["植牙前精算骨量夠不夠", "複雜根管系統立體看清楚", "下顎神經管跟牙根的空間關係", "顎骨囊腫腫瘤的立體範圍", "阻生齒跟重要結構的相對位置"]}];
+const imgGrid=document.getElementById('imgGrid');
+IMAGING.forEach(im=>{
+  imgGrid.innerHTML+=`<div class="img-card">
+    <div class="img-head"><span class="img-icon">${im.icon}</span><span class="img-zh">${im.zh}</span></div>
+    <div class="img-use">${im.use}</div>
+    <div class="img-points">${im.points.map(p=>`<div class="img-point">${p}</div>`).join('')}</div>
+  </div>`;
+});
+
+const CASE_FLOW_DATA=[{"z": "主訴分析", "desc": "先搞清楚病人到底是為什麼來的：痛的性質（自己會痛還是被刺激才痛）、痛多久了、什麼會誘發、怎麼樣會緩解", "tip": "國考重點：能不能從主訴就快速縮小可能的診斷範圍，這是臨床推理的第一關"}, {"z": "問診技巧", "desc": "系統性把病史問清楚：用OPQRST分析疼痛、以前的牙科病史、全身病史、有沒有在吃藥、有沒有過敏", "tip": "國考重點：特定全身疾病（糖尿病、心臟病）會怎麼影響牙科治療計畫"}, {"z": "鑑別診斷", "desc": "根據主訴跟檢查結果，列出可能的診斷然後一個一個排除：是牙髓痛、牙周痛、還是根本不是牙齒的問題", "tip": "國考重點：牙髓炎、牙周炎、顳顎關節疾病、神經痛怎麼分得清"}, {"z": "影像判讀", "desc": "挑對影像工具（根尖片/咬翼片/全口X光/CBCT），然後系統性地看出病灶的特徵", "tip": "國考重點：什麼情況選什麼影像、輻射劑量怎麼考量、病灶邊界跟骨質變化怎麼看"}, {"z": "治療規劃", "desc": "根據診斷結果排出治療順序：先處理急的→再處理病因→然後修復重建→最後維護", "tip": "國考重點：治療順序背後的邏輯，能不能設計跨科整合的治療計畫"}, {"z": "追蹤管理", "desc": "治療完之後要定期回診評估、注意有沒有併發症、判斷預後好不好、長期怎麼維護", "tip": "國考重點：各種治療要追蹤多久才算標準、怎麼判定治療算成功"}];
+const caseFlow=document.getElementById('caseFlow');
+CASE_FLOW_DATA.forEach((c,i)=>{
+  caseFlow.innerHTML+=`<div class="case-step">
+    <div class="case-num">${i+1}</div>
+    <div>
+      <div class="case-z">${c.z}</div>
+      <div class="case-desc">${c.desc}</div>
+      <div class="case-tip">💡 ${c.tip}</div>
+    </div>
+  </div>`;
+});
+
+// Anki demo
+const ANKI=[["不可復性牙髓炎的臨床特徵是什麼？", "自發性劇烈疼痛、夜間加重、對冷熱刺激產生延遲性且持續的疼痛反應，與可復性牙髓炎的短暫刺激痛明顯不同。需進行根管治療。"], ["2018年牙周病新分類系統的兩大評估維度是什麼？", "Stage（分期，反映疾病嚴重度與複雜度，依附著喪失、骨吸收程度分為I-IV期）與Grade（分級，反映疾病進展速度與風險因子，分為A/B/C級）。"], ["角化囊腫（OKC）為什麼具有高復發率？", "因為其囊壁上皮較薄但具高增生活性，且常伴隨衛星囊腫（satellite cysts），手術摘除時容易殘留上皮組織，導致術後復發率明顯高於其他齒源性囊腫。"], ["CBCT在植牙手術前評估的核心價值是什麼？", "提供三維立體影像，可精確測量骨量（高度、寬度、密度），並準確判斷下顎神經管、上顎竇等重要解剖結構與植牙位置的空間關係，降低手術併發症風險。"], ["可復性與不可復性牙髓炎最關鍵的鑑別點是什麼？", "疼痛持續時間：可復性牙髓炎在移除刺激（如冷熱）後疼痛立即消失；不可復性牙髓炎則在刺激移除後疼痛持續存在，甚至出現自發性疼痛。"]];
+let ankiIdx=0, flipped=false;
+function renderAnki(){
+  const face=document.getElementById('ankiFace');
+  const card=ANKI[ankiIdx];
+  if(!flipped){
+    face.innerHTML=`<div><div class="anki-label">點擊「翻面」看答案 · 第${ankiIdx+1}/${ANKI.length}張</div><div class="anki-q">${card[0]}</div></div>`;
+  } else {
+    face.innerHTML=`<div style="text-align:left"><div class="anki-label">答案 · 第${ankiIdx+1}/${ANKI.length}張</div><div class="anki-a show">${card[1]}</div></div>`;
+  }
+}
+function flipCard(e){e.stopPropagation();flipped=!flipped;renderAnki();}
+function nextCard(e){e.stopPropagation();ankiIdx=(ankiIdx+1)%ANKI.length;flipped=false;renderAnki();}
+function prevCard(e){e.stopPropagation();ankiIdx=(ankiIdx-1+ANKI.length)%ANKI.length;flipped=false;renderAnki();}
+document.getElementById('ankiCard').addEventListener('click',(e)=>{if(e.target.tagName!=='BUTTON'){flipped=!flipped;renderAnki();}});
+renderAnki();
+
+const SPRINTS=[{"days": "180天計畫", "subtitle": "從零開始打基礎", "desc": "先把基礎醫學科目啃完，建立完整的知識架構，同步開始用Anki慢慢累積記憶卡庫。", "phases": ["第1-60天：基礎醫學科目（解剖/生理/生化/病理/藥理/微免）全部打底", "第61-120天：臨床科目（牙體復形/牙髓/牙周/贋復/矯正/兒童牙科/口腔外科）一個一個學", "第121-160天：歷屆考題全面刷過一輪，排出哪些考點最常出現", "第161-180天：模擬考校正心態，補強弱點"]}, {"days": "90天計畫", "subtitle": "已經有基礎，火力全開", "desc": "假設你已經有底子了，這階段集中火力在高頻考點和歷屆考題分析，每週模考檢測進度。", "phases": ["第1-30天：TOP1000考點全部複習一輪，建立疾病地圖架構", "第31-60天：近10年考題分科精讀，標記重複出現的考點", "第61-80天：全真模考2-3次，找出哪些科目特別弱", "第81-90天：弱點科目集中補，影像判讀題型特別練"]}, {"days": "60天計畫", "subtitle": "時間不多，火力集中", "desc": "時間真的有限，全力衝TOP500高頻考點，搭配高強度模考練臨場反應。", "phases": ["第1-20天：TOP500考點認真讀，搭配高頻卡庫密集複習", "第21-40天：近5年考題逐題分析，抓出命題趨勢", "第41-50天：每週2次全真模考，模擬國考臨場感", "第51-60天：錯題卡庫總複習，弱點科目最後一波"]}, {"days": "30天計畫", "subtitle": "最後關頭，只做最划算的事", "desc": "剩30天，只做投資回報率最高的事：高頻考點、近3年考題、錯題複習，冷門知識直接捨棄。", "phases": ["第1-10天：TOP100考點地獄複習，必考疾病藥物全部記熟", "第11-20天：近3年考題全部刷完，標記陷阱題", "第21-26天：每天模考+當天錯題馬上訂正", "第27-30天：總複習+7天急救卡庫先預演一輪"]}, {"days": "7天急救模式", "subtitle": "考前最後72小時的關鍵複習", "desc": "這時候只看TOP100，只看自己的錯題卡，做最後校正就好，不要再學新東西，心態穩定上考場最重要。", "phases": ["第1-3天：TOP100考點最後掃過一遍，錯題卡全部複習", "第4-5天：模擬考最後校正心態跟時間分配", "第6天：影像判讀快速重溫，必考藥物劑量再看一次", "第7天：完全放鬆休息，心理準備就好，睡飽最重要"]}];
+const sprintTabs=document.getElementById('sprintTabs');
+const sprintDetail=document.getElementById('sprintDetail');
+SPRINTS.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='spt';
+  b.innerHTML=s.days;
+  b.onclick=()=>{
+    document.querySelectorAll('.spt').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+    sprintDetail.className='sprint-detail show';
+    sprintDetail.innerHTML=`
+      <div class="sprint-head"><span class="sprint-days">${s.days}</span><span class="sprint-sub">${s.subtitle}</span></div>
+      <div class="sprint-desc">${s.desc}</div>
+      <div class="phase-list">${s.phases.map(p=>`<div class="phase-item">${p}</div>`).join('')}</div>`;
+    sprintDetail.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  sprintTabs.appendChild(b);
+});
+sprintTabs.querySelector('.spt').click();
+
+const COACH=[{"icon": "📅", "zh": "讀書計畫", "desc": "根據你離考試還有多久、現在會多少，自動幫你排出每個科目該分配多少時間、每天該讀多少量"}, {"icon": "📊", "zh": "進度管理", "desc": "每個科目、每個高頻考點讀到哪了，全部視覺化呈現，一看就知道哪裡還沒複習"}, {"icon": "🎯", "zh": "弱點分析", "desc": "根據模考結果跟Anki複習數據，自動標出你哪個科目哪個考點特別弱，幫你調整複習順序"}, {"icon": "📈", "zh": "分數預測", "desc": "根據模考表現趨勢跟歷屆題正確率，預測你這次國考大概會考多少分"}, {"icon": "🏆", "zh": "通關策略", "desc": "根據剩下的時間跟你現在的實力，告訴你接下來最該先讀什麼，把通過機率拉到最大"}];
+const coachGrid=document.getElementById('coachGrid');
+COACH.forEach(c=>{
+  coachGrid.innerHTML+=`<div class="coach-card"><div class="coach-icon">${c.icon}</div><div class="coach-zh">${c.zh}</div><div class="coach-desc">${c.desc}</div></div>`;
+});
+
+const DASH=[{"icon": "📋", "zh": "今日進度", "desc": "今天做了多少學習任務、複習了多少Anki卡、刷了多少模考題，一目了然"}, {"icon": "🎯", "zh": "高頻掌握率", "desc": "TOP100/TOP500/TOP1000考點，你現在掌握了多少百分比"}, {"icon": "📝", "zh": "模考成績", "desc": "最近幾次模考分科成績的趨勢，哪科進步哪科退步一看就知道"}, {"icon": "⚔️", "zh": "國考戰力", "desc": "把知識掌握度、模考表現、弱點補強進度全部綜合起來算出一個總戰力分"}, {"icon": "🔮", "zh": "預測分數", "desc": "AI根據你現在所有的數據，預測你這次國考大概會落在哪個分數區間"}];
+const dashGrid=document.getElementById('dashGrid');
+DASH.forEach((d,i)=>{
+  const id='dm'+i;
+  dashGrid.innerHTML+=`<div class="dash-card">
+    <div class="dash-icon">${d.icon}</div>
+    <div class="dash-zh">${d.zh}</div>
+    <div class="dash-bar"><div class="dash-fill" id="${id}f" style="width:50%"></div></div>
+    <div class="dash-input">
+      <input type="range" class="dash-range" min="0" max="100" value="50" id="${id}" oninput="document.getElementById('${id}f').style.width=this.value+'%';document.getElementById('${id}n').textContent=this.value+'%'">
+      <span class="dash-num" id="${id}n">50%</span>
+    </div>
+    <div class="dash-desc">${d.desc}</div>
+  </div>`;
+});
+
+const QUOTES=[["國考最大的秘密不是背更多。", "而是找出最常考的規律。"], ["普通學生讀課本。", "高手讀命題邏輯。"], ["普通學生背疾病。", "高手建立疾病地圖。"], ["普通學生看影像。", "高手看見病灶背後的機轉。"], ["牙醫國考真正考的不是記憶力。", "而是你有沒有建立完整的牙醫知識網路。"]];
+const quoteGrid=document.getElementById('quoteGrid');
+QUOTES.forEach(q=>{
+  quoteGrid.innerHTML+=`<div class="quote-card"><div class="quote-bad">${q[0]}</div><div class="quote-good">${q[1]}</div></div>`;
+});
+
+const formulaFlow=document.getElementById('formulaFlow');
+const FORMULA_ITEMS=['高頻考點','疾病地圖','影像判讀','Anki記憶','模擬考','AI教練'];
+FORMULA_ITEMS.forEach((f,i)=>{
+  formulaFlow.innerHTML+=`<span class="formula-item">${f}</span>`;
+  if(i<FORMULA_ITEMS.length-1) formulaFlow.innerHTML+=`<span class="formula-x">×</span>`;
+});
+
+const GOALS=[
+  {num:'①',z:'看穿考官想考什麼'},
+  {num:'②',z:'看懂病怎麼來的'},
+  {num:'③',z:'看懂影像在說什麼'},
+  {num:'④',z:'練出牙醫的思維'},
+  {num:'⑤',z:'國考一次就過'},
+];
+const goalGrid=document.getElementById('goalGrid');
+GOALS.forEach(g=>{
+  goalGrid.innerHTML+=`<div class="goal-card"><div class="goal-num">${g.num}</div><div class="goal-z">${g.z}</div></div>`;
+});
+</script>
+</body>
+</html>
